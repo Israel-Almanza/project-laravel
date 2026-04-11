@@ -65,9 +65,9 @@ class PaisController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PaisRequest $request, Pais $pais)
+    public function update(PaisRequest $request, Pais $pai)
     {
-        $pais->update($request->validated());
+        $pai->update($request->validated());
 
         return redirect()->route('pais.index')
             ->with('success', 'Pais updated successfully');
