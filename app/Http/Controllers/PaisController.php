@@ -34,12 +34,12 @@ class PaisController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PaiRequest $request)
+    public function store(PaisRequest $request)
     {
         Pais::create($request->validated());
 
         return redirect()->route('pais.index')
-            ->with('success', 'Pai created successfully.');
+            ->with('success', 'Pais created successfully.');
     }
 
     /**
