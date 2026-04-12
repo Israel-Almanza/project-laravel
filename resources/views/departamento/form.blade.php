@@ -7,9 +7,16 @@
             {!! $errors->first('nombre', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
-            <label for="pais" class="form-label">{{ __('Pais') }}</label>
-            <input type="text" name="pais" class="form-control @error('pais') is-invalid @enderror" value="{{ old('pais', $departamento?->pais) }}" id="pais" placeholder="Pais">
-            {!! $errors->first('pais', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            <label for="pais_id" class="form-label">{{ __('Pais') }}</label>
+            <select name="pais_id" id="pais_id" class="form-control @error('pais_id') is-invalid @enderror">
+                <option value="">{{ __('Seleccione un país') }}</option>
+                @foreach ($paises as $paisOption)
+                    <option value="{{ $paisOption->id }}" @selected((string) old('pais_id', $departamento?->pais_id) === (string) $paisOption->id)>
+                        {{ $paisOption->nombre }}
+                    </option>
+                @endforeach
+            </select>
+            {!! $errors->first('pais_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
             <label for="coordena" class="form-label">{{ __('Coordena') }}</label>

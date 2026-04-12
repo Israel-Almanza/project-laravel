@@ -23,9 +23,14 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="dept-pais" class="form-label">{{ __('Pais') }}</label>
-                    <input type="text" id="dept-pais" wire:model="pais" class="form-control @error('pais') is-invalid @enderror" placeholder="{{ __('Pais') }}">
-                    @error('pais')
+                    <label for="dept-pais-id" class="form-label">{{ __('Pais') }}</label>
+                    <select id="dept-pais-id" wire:model="pais_id" class="form-select @error('pais_id') is-invalid @enderror">
+                        <option value="">{{ __('Seleccione un país') }}</option>
+                        @foreach ($paises as $id => $nombrePais)
+                            <option value="{{ $id }}">{{ $nombrePais }}</option>
+                        @endforeach
+                    </select>
+                    @error('pais_id')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
@@ -83,7 +88,7 @@
                                 <tr wire:key="departamento-row-{{ $depto->id }}">
                                     <td>{{ ($departamentos->currentPage() - 1) * $departamentos->perPage() + $loop->iteration }}</td>
                                     <td>{{ $depto->nombre }}</td>
-                                    <td>{{ $depto->pais }}</td>
+                                    <td>{{ $depto->pais?->nombre ?? '—' }}</td>
                                     <td>{{ $depto->coordena }}</td>
                                     <td>{{ $depto->zoom }}</td>
                                     <td style="min-width: 220px;">

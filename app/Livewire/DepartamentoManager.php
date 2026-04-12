@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Http\Requests\DepartamentoRequest;
 use App\Models\Departamento;
+use App\Models\Pais;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -17,7 +18,10 @@ class DepartamentoManager extends Component
 
     public string $nombre = '';
 
-    public string $pais = '';
+    /** @var array<int|string, string> id => nombre */
+    public array $paises = [];
+
+    public ?int $pais_id = null;
 
     public string $coordena = '';
 
@@ -26,6 +30,30 @@ class DepartamentoManager extends Component
     public string $successMessage = '';
 
     public ?int $confirmingDeleteId = null;
+
+    public function mount(): void
+    {
+        $this->loadPaises();
+    }
+
+    public function updatedPaisId(mixed $value): void
+    {
+        if ($value === '' || $value === null) {
+            $this->pais_id = null;
+
+            return;
+        }
+
+        $this->pais_id = (int) $value;
+    }
+
+    protected function loadPaises(): void
+    {
+        $this->paises = Pais::query()
+            ->orderBy('nombre')
+            ->pluck('nombre', 'id')
+            ->all();
+    }
 
     protected function rules(): array
     {
@@ -43,7 +71,7 @@ class DepartamentoManager extends Component
 
         $this->editingId = $departamento->id;
         $this->nombre = $departamento->nombre;
-        $this->pais = $departamento->pais;
+        $this->pais_id = $departamento->pais_id !== null ? (int) $departamento->pais_id : null;
         $this->coordena = $departamento->coordena;
         $this->zoom = (string) $departamento->zoom;
 
@@ -58,7 +86,7 @@ class DepartamentoManager extends Component
 
         $payload = [
             'nombre' => $this->nombre,
-            'pais' => $this->pais,
+            'pais_id' => $this->pais_id,
             'coordena' => $this->coordena,
             'zoom' => $this->zoom,
         ];
@@ -106,7 +134,7 @@ class DepartamentoManager extends Component
     protected function clearFormFields(): void
     {
         $this->editingId = null;
-        $this->reset(['nombre', 'pais', 'coordena', 'zoom']);
+        $this->reset(['nombre', 'pais_id', 'coordena', 'zoom']);
         $this->resetValidation();
     }
 
@@ -121,6 +149,7 @@ class DepartamentoManager extends Component
     {
         return view('livewire.departamento-manager', [
             'departamentos' => Departamento::query()
+                ->with('pais')
                 ->orderByDesc('id')
                 ->paginate(20, ['*'], self::PAGINATION_PAGE_NAME),
         ]);

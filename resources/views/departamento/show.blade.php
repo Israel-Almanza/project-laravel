@@ -26,7 +26,7 @@
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Pais:</strong>
-                            {{ $departamento->pais }}
+                            {{ $departamento->pais?->nombre ?? '—' }}
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Coordena:</strong>

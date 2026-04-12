@@ -22,10 +22,10 @@ class DepartamentoRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'nombre' => 'required|string',
-			'pais' => 'required|string',
-			'coordena' => 'required|string',
-			'zoom' => 'required|string',
+            'nombre' => 'required|string',
+            'pais_id' => 'required|integer|exists:pais,id',
+            'coordena' => 'required|string',
+            'zoom' => 'required|string',
         ];
     }
 }

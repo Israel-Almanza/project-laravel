@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departamento;
+use App\Models\Pais;
 use App\Http\Requests\DepartamentoRequest;
 
 /**
@@ -16,7 +17,7 @@ class DepartamentoController extends Controller
      */
     public function index()
     {
-        $departamentos = Departamento::paginate();
+        $departamentos = Departamento::query()->with('pais')->paginate();
 
         return view('departamento.index', compact('departamentos'))
             ->with('i', (request()->input('page', 1) - 1) * $departamentos->perPage());
@@ -28,7 +29,9 @@ class DepartamentoController extends Controller
     public function create()
     {
         $departamento = new Departamento();
-        return view('departamento.create', compact('departamento'));
+        $paises = Pais::query()->orderBy('nombre')->get();
+
+        return view('departamento.create', compact('departamento', 'paises'));
     }
 
     /**
@@ -47,7 +50,7 @@ class DepartamentoController extends Controller
      */
     public function show($id)
     {
-        $departamento = Departamento::find($id);
+        $departamento = Departamento::query()->with('pais')->findOrFail($id);
 
         return view('departamento.show', compact('departamento'));
     }
@@ -57,9 +60,10 @@ class DepartamentoController extends Controller
      */
     public function edit($id)
     {
-        $departamento = Departamento::find($id);
+        $departamento = Departamento::query()->with('pais')->findOrFail($id);
+        $paises = Pais::query()->orderBy('nombre')->get();
 
-        return view('departamento.edit', compact('departamento'));
+        return view('departamento.edit', compact('departamento', 'paises'));
     }
 
     /**

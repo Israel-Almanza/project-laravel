@@ -50,7 +50,7 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $departamento->nombre }}</td>
-											<td>{{ $departamento->pais }}</td>
+											<td>{{ $departamento->pais?->nombre ?? '—' }}</td>
 											<td>{{ $departamento->coordena }}</td>
 											<td>{{ $departamento->zoom }}</td>
 
