@@ -12,6 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         //
+        Schema::create('jerarquias', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('prefijo');
+            $table->string('organizacion');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('jerarquias');
     }
 };
