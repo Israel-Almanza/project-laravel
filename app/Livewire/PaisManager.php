@@ -27,6 +27,13 @@ class PaisManager extends Component
 
     public ?int $confirmingDeleteId = null;
 
+    public string $search = '';
+
+    public function updatedSearch(): void
+    {
+        $this->resetPage(self::PAGINATION_PAGE_NAME);
+    }
+
     protected function rules(): array
     {
         return (new PaisRequest)->rules();
@@ -119,8 +126,20 @@ class PaisManager extends Component
 
     public function render()
     {
+        $query = Pais::query()->orderByDesc('id');
+
+        if ($this->search !== '') {
+            $term = '%'.addcslashes($this->search, '%_\\').'%';
+            $query->where(function ($q) use ($term) {
+                $q->where('prefijo', 'like', $term)
+                    ->orWhere('nombre', 'like', $term)
+                    ->orWhere('coordena', 'like', $term)
+                    ->orWhere('zoom', 'like', $term);
+            });
+        }
+
         return view('livewire.pais-manager', [
-            'paises' => Pais::query()->orderByDesc('id')->paginate(20, ['*'], self::PAGINATION_PAGE_NAME),
+            'paises' => $query->paginate(20, ['*'], self::PAGINATION_PAGE_NAME),
         ]);
     }
 }

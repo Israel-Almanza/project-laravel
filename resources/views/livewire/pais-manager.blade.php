@@ -1,118 +1,132 @@
-<div class="row" wire:key="pais-manager-root">
+<div class="row g-4" wire:key="pais-manager-root">
     <div class="col-md-3">
-        <div class="card card-default">
-            <div class="card-header">
-                <span class="card-title">
-                    @if ($editingId)
-                        {{ __('Update') }} {{ __('Pais') }}
-                    @else
-                        {{ __('Create') }} {{ __('Pais') }}
-                    @endif
-                </span>
+        <div class="card module-form-card shadow-sm border-0 h-100">
+            <div class="card-header bg-white fw-semibold py-3 px-3 border-bottom">
+                @if ($editingId)
+                    {{ __('Actualizar país') }}
+                @else
+                    {{ __('Crear país') }}
+                @endif
             </div>
-            <div class="card-body bg-white">
+            <div class="card-body p-3 bg-white rounded-bottom">
                 @if ($successMessage)
-                    <div class="alert alert-success py-2 small" role="alert">{{ $successMessage }}</div>
+                    <div class="alert alert-success py-2 small mb-3" role="alert">{{ $successMessage }}</div>
                 @endif
 
                 <div class="mb-3">
-                    <label for="pais-prefijo" class="form-label">{{ __('Prefijo') }}</label>
-                    <input type="text" id="pais-prefijo" wire:model="prefijo" class="form-control @error('prefijo') is-invalid @enderror" placeholder="{{ __('Prefijo') }}">
+                    <label for="pais-prefijo" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Prefijo') }}</label>
+                    <input type="text" id="pais-prefijo" wire:model="prefijo" class="form-control rounded-3 @error('prefijo') is-invalid @enderror" placeholder="{{ __('Prefijo') }}">
                     @error('prefijo')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="pais-nombre" class="form-label">{{ __('Nombre') }}</label>
-                    <input type="text" id="pais-nombre" wire:model="nombre" class="form-control @error('nombre') is-invalid @enderror" placeholder="{{ __('Nombre') }}">
+                    <label for="pais-nombre" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Nombre') }}</label>
+                    <input type="text" id="pais-nombre" wire:model="nombre" class="form-control rounded-3 @error('nombre') is-invalid @enderror" placeholder="{{ __('Nombre') }}">
                     @error('nombre')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="pais-coordena" class="form-label">{{ __('Coordena') }}</label>
-                    <input type="text" id="pais-coordena" wire:model="coordena" class="form-control @error('coordena') is-invalid @enderror" placeholder="{{ __('Coordena') }}">
+                    <label for="pais-coordena" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Coordena') }}</label>
+                    <input type="text" id="pais-coordena" wire:model="coordena" class="form-control rounded-3 @error('coordena') is-invalid @enderror" placeholder="{{ __('Coordena') }}">
                     @error('coordena')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="mb-3">
-                    <label for="pais-zoom" class="form-label">{{ __('Zoom') }}</label>
-                    <input type="text" id="pais-zoom" wire:model="zoom" class="form-control @error('zoom') is-invalid @enderror" placeholder="{{ __('Zoom') }}">
+                <div class="mb-4">
+                    <label for="pais-zoom" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Zoom') }}</label>
+                    <input type="text" id="pais-zoom" wire:model="zoom" class="form-control rounded-3 @error('zoom') is-invalid @enderror" placeholder="{{ __('Zoom') }}">
                     @error('zoom')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
 
-                <div class="d-flex flex-wrap gap-2">
-                    <button type="button" wire:click="save" class="btn btn-primary">
-                        @if ($editingId)
-                            {{ __('Update') }}
-                        @else
-                            {{ __('Save') }}
-                        @endif
-                    </button>
+                <button type="button" wire:click="save" class="btn btn-danger w-100 py-3 fw-bold rounded-3 shadow-sm text-uppercase">
                     @if ($editingId)
-                        <button type="button" wire:click="cancel" class="btn btn-outline-secondary">{{ __('Cancel') }}</button>
+                        {{ __('Actualizar') }}
+                    @else
+                        {{ __('Guardar') }}
                     @endif
-                </div>
+                </button>
+                @if ($editingId)
+                    <button type="button" wire:click="cancel" class="btn btn-outline-secondary w-100 mt-2 rounded-3">{{ __('Cancelar') }}</button>
+                @endif
             </div>
         </div>
     </div>
 
     <div class="col-md-9">
-        <div class="card card-default">
-            <div class="card-header">
-                <span class="card-title">{{ __('Pais') }}</span>
+        <div class="card module-table-card shadow-sm border-0">
+            <div class="card-header bg-white py-3 px-3 border-bottom-0 d-flex flex-wrap align-items-center justify-content-between gap-3">
+                <span class="fw-semibold mb-0">{{ __('Listado de países') }}</span>
+                <div class="dashboard-table-search flex-grow-1 flex-md-grow-0" style="min-width: 200px; max-width: 320px;">
+                    <div class="input-group input-group-sm shadow-sm rounded-3 overflow-hidden">
+                        <span class="input-group-text border-0 bg-white text-muted"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        <input
+                            type="search"
+                            wire:model.live.debounce.350ms="search"
+                            class="form-control border-0"
+                            placeholder="{{ __('Buscar…') }}"
+                            aria-label="{{ __('Buscar') }}"
+                        >
+                    </div>
+                </div>
             </div>
-            <div class="card-body bg-white">
+            <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead class="thead">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
                             <tr>
-                                <th>No</th>
+                                <th class="ps-3" style="width: 4rem;">#</th>
                                 <th>{{ __('Prefijo') }}</th>
                                 <th>{{ __('Nombre') }}</th>
                                 <th>{{ __('Coordena') }}</th>
                                 <th>{{ __('Zoom') }}</th>
-                                <th></th>
+                                <th class="text-end pe-3" style="min-width: 8rem;">{{ __('Acciones') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($paises as $pai)
                                 <tr wire:key="pais-row-{{ $pai->id }}">
-                                    <td>{{ ($paises->currentPage() - 1) * $paises->perPage() + $loop->iteration }}</td>
+                                    <td class="ps-3 text-muted small">{{ ($paises->currentPage() - 1) * $paises->perPage() + $loop->iteration }}</td>
                                     <td>{{ $pai->prefijo }}</td>
-                                    <td>{{ $pai->nombre }}</td>
-                                    <td>{{ $pai->coordena }}</td>
-                                    <td>{{ $pai->zoom }}</td>
-                                    <td style="min-width: 220px;">
+                                    <td class="fw-medium">{{ $pai->nombre }}</td>
+                                    <td><span class="text-muted small">{{ $pai->coordena }}</span></td>
+                                    <td><span class="text-muted small">{{ $pai->zoom }}</span></td>
+                                    <td class="text-end pe-3">
                                         @if ($confirmingDeleteId === $pai->id)
-                                            <span class="small text-danger d-block mb-1">{{ __('Are you sure you want to delete this country?') }}</span>
-                                            <div class="d-flex flex-wrap gap-1">
-                                                <button type="button" wire:click="delete" class="btn btn-danger btn-sm">{{ __('Confirm') }}</button>
-                                                <button type="button" wire:click="cancelDelete" class="btn btn-secondary btn-sm">{{ __('Cancel') }}</button>
+                                            <div class="d-inline-flex flex-column align-items-end gap-1">
+                                                <span class="small text-danger">{{ __('¿Eliminar este país?') }}</span>
+                                                <div class="btn-group btn-group-sm">
+                                                    <button type="button" wire:click="delete" class="btn btn-danger">{{ __('Sí') }}</button>
+                                                    <button type="button" wire:click="cancelDelete" class="btn btn-outline-secondary">{{ __('No') }}</button>
+                                                </div>
                                             </div>
                                         @else
-                                            <div class="d-flex flex-wrap gap-1">
-                                                <button type="button" wire:click="edit({{ $pai->id }})" class="btn btn-success btn-sm">{{ __('Edit') }}</button>
-                                                <button type="button" wire:click="askDelete({{ $pai->id }})" class="btn btn-danger btn-sm">{{ __('Delete') }}</button>
+                                            <div class="d-inline-flex gap-1 justify-content-end">
+                                                <button type="button" wire:click="edit({{ $pai->id }})" class="btn btn-light btn-icon border shadow-sm" title="{{ __('Editar') }}">
+                                                    <i class="fa-solid fa-pen text-secondary"></i>
+                                                </button>
+                                                <button type="button" wire:click="askDelete({{ $pai->id }})" class="btn btn-light btn-icon border shadow-sm" title="{{ __('Eliminar') }}">
+                                                    <i class="fa-solid fa-trash text-danger"></i>
+                                                </button>
                                             </div>
                                         @endif
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="text-center text-muted">{{ __('No countries yet.') }}</td>
+                                    <td colspan="6" class="text-center text-muted py-5">{{ __('No hay países registrados.') }}</td>
                                 </tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
-        <div class="mt-2">
-            {{ $paises->links() }}
+            <div class="card-footer bg-white border-0 pt-2 pb-3 d-flex justify-content-center">
+                {{ $paises->links() }}
+            </div>
         </div>
     </div>
 </div>

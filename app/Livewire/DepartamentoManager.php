@@ -31,6 +31,13 @@ class DepartamentoManager extends Component
 
     public ?int $confirmingDeleteId = null;
 
+    public string $search = '';
+
+    public function updatedSearch(): void
+    {
+        $this->resetPage(self::PAGINATION_PAGE_NAME);
+    }
+
     public function mount(): void
     {
         $this->loadPaises();
@@ -147,11 +154,24 @@ class DepartamentoManager extends Component
 
     public function render()
     {
+        $query = Departamento::query()
+            ->with('pais')
+            ->orderByDesc('id');
+
+        if ($this->search !== '') {
+            $term = '%'.addcslashes($this->search, '%_\\').'%';
+            $query->where(function ($q) use ($term) {
+                $q->where('nombre', 'like', $term)
+                    ->orWhere('coordena', 'like', $term)
+                    ->orWhere('zoom', 'like', $term)
+                    ->orWhereHas('pais', function ($pq) use ($term) {
+                        $pq->where('nombre', 'like', $term);
+                    });
+            });
+        }
+
         return view('livewire.departamento-manager', [
-            'departamentos' => Departamento::query()
-                ->with('pais')
-                ->orderByDesc('id')
-                ->paginate(20, ['*'], self::PAGINATION_PAGE_NAME),
+            'departamentos' => $query->paginate(20, ['*'], self::PAGINATION_PAGE_NAME),
         ]);
     }
 }
