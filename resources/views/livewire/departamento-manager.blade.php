@@ -14,8 +14,8 @@
                 @endif
 
                 <div class="mb-3">
-                    <label for="dept-nombre" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Nombre') }}</label>
-                    <input type="text" id="dept-nombre" wire:model="nombre" class="form-control rounded-3 @error('nombre') is-invalid @enderror" placeholder="{{ __('Nombre') }}">
+                    <label for="dept-nombre" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Departamento o Estado') }}</label>
+                    <input type="text" id="dept-nombre" wire:model="nombre" class="form-control rounded-3 @error('nombre') is-invalid @enderror" placeholder="{{ __('Mendoza') }}">
                     @error('nombre')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
@@ -32,22 +32,27 @@
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="mb-3">
-                    <label for="dept-coordenadas" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Coordenadas') }}</label>
-                    <input type="text" id="dept-coordenadas" wire:model="coordenadas" class="form-control rounded-3 @error('coordenadas') is-invalid @enderror" placeholder="{{ __('Coordenadas') }}">
-                    @error('coordenadas')
-                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="dept-zoom" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Zoom') }}</label>
-                    <input type="text" id="dept-zoom" wire:model="zoom" class="form-control rounded-3 @error('zoom') is-invalid @enderror" placeholder="{{ __('Zoom') }}">
-                    @error('zoom')
-                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
+
+
+                <div class="row">
+                    <div class="col-md-8 mb-3">
+                        <label for="pais-coordenadas" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Coordenadas') }}</label>
+                        <input type="text" id="pais-coordenadas" wire:model="coordenadas" class="form-control rounded-3 @error('coordenadas') is-invalid @enderror" placeholder="{{ __('-33.44683, -70.66138') }}">
+                        @error('coordenadas')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-4">
+                        <label for="pais-zoom" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Zoom') }}</label>
+                        <input type="text" id="pais-zoom" wire:model="zoom" class="form-control rounded-3 @error('zoom') is-invalid @enderror" placeholder="{{ __('15') }}">
+                        @error('zoom')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
                 </div>
 
-                <button type="button" wire:click="save" class="btn btn-danger w-100 py-3 fw-bold rounded-3 shadow-sm text-uppercase">
+                <button type="button" wire:click="save" class="btn btn-danger w-100 py-1 fw-bold rounded-3 shadow-sm text-uppercase">
                     @if ($editingId)
                         {{ __('Actualizar') }}
                     @else

@@ -28,7 +28,7 @@
                     @enderror
                 </div>
 
-                <button type="button" wire:click="save" class="btn btn-danger w-100 py-3 fw-bold rounded-3 shadow-sm text-uppercase">
+                <button type="button" wire:click="save" class="btn btn-danger w-100 py-1 fw-bold rounded-3 shadow-sm text-uppercase">
                     @if ($editingId)
                         {{ __('Actualizar') }}
                     @else

@@ -15,14 +15,14 @@
 
                 <div class="mb-3">
                     <label for="mun-prefijo" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Prefijo') }}</label>
-                    <input type="text" id="mun-prefijo" wire:model="prefijo" class="form-control rounded-3 @error('prefijo') is-invalid @enderror" placeholder="{{ __('Prefijo') }}">
+                    <input type="text" id="mun-prefijo" wire:model="prefijo" class="form-control rounded-3 @error('prefijo') is-invalid @enderror" placeholder="{{ __('SCZ') }}">
                     @error('prefijo')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <label for="mun-nombre" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Nombre') }}</label>
-                    <input type="text" id="mun-nombre" wire:model="nombre" class="form-control rounded-3 @error('nombre') is-invalid @enderror" placeholder="{{ __('Nombre') }}">
+                    <input type="text" id="mun-nombre" wire:model="nombre" class="form-control rounded-3 @error('nombre') is-invalid @enderror" placeholder="{{ __('Santa Cruz de la Sierra') }}">
                     @error('nombre')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
@@ -40,7 +40,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="mun-depto-id" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Departamento') }}</label>
+                    <label for="mun-depto-id" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Estado o Departamento') }}</label>
                     <select id="mun-depto-id" wire:model="departamento_id" class="form-select rounded-3 @error('departamento_id') is-invalid @enderror">
                         <option value="">{{ __('Seleccione un departamento') }}</option>
                         @foreach ($departamentos as $id => $labelDepto)
@@ -78,7 +78,7 @@
                     @enderror
                 </div>
 
-                <button type="button" wire:click="save" class="btn btn-danger w-100 py-3 fw-bold rounded-3 shadow-sm text-uppercase">
+                <button type="button" wire:click="save" class="btn btn-danger w-100 py-1 fw-bold rounded-3 shadow-sm text-uppercase">
                     @if ($editingId)
                         {{ __('Actualizar') }}
                     @else
