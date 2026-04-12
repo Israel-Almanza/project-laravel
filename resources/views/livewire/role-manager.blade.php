@@ -1,7 +1,7 @@
-<div class="row g-4" wire:key="role-manager-root">
-    <div class="col-md-3">
-        <div class="card module-form-card shadow-sm border-0 h-100">
-            <div class="card-header bg-white fw-semibold py-3 px-3 border-bottom">
+<div class="row g-3" wire:key="role-manager-root">
+    <div class="col-md-2">
+        <div class="card module-form-card border-0 h-100">
+            <div class="card-header form-header py-2 px-3 border-bottom">
                 @if ($editingId)
                     {{ __('Actualizar rol') }}
                 @else
@@ -15,12 +15,12 @@
 
                 <div class="role-ts-form" data-role-ts-wrap data-lw-id="{{ $this->getId() }}">
                     <div class="mb-3">
-                        <label for="administrador" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Administrador') }}</label>
+                        <label for="administrador" class="form-label small text-muted fw-semibold">{{ __('Administrador') }}</label>
                         <div wire:ignore class="w-100">
                             <select
                                 id="administrador"
                                 multiple
-                                class="form-select rounded-3 @error('administrador') is-invalid @enderror"
+                                class="form-select form-select-sm rounded-3 @error('administrador') is-invalid @enderror"
                             >
                                 <option value="Coordinador">{{ __('Coordinador') }}</option>
                                 <option value="Home">{{ __('Home') }}</option>
@@ -35,13 +35,13 @@
                         @enderror
                     </div>
 
-                    <div class="mb-4">
-                        <label for="representante" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Representante') }}</label>
+                    <div class="mb-3">
+                        <label for="representante" class="form-label small text-muted fw-semibold">{{ __('Representante') }}</label>
                         <div wire:ignore class="w-100">
                             <select
                                 id="representante"
                                 multiple
-                                class="form-select rounded-3 @error('representante') is-invalid @enderror"
+                                class="form-select form-select-sm rounded-3 @error('representante') is-invalid @enderror"
                             >
                                 <option value="Home">{{ __('Home') }}</option>
                                 <option value="Dashboard">{{ __('Dashboard') }}</option>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
 
-                <button type="button" wire:click="save" class="btn btn-danger w-100 py-3 fw-bold rounded-3 shadow-sm text-uppercase">
+                <button type="button" wire:click="save" class="btn btn-custom w-100 py-1 fw-bold rounded-3 shadow-sm ">
                     @if ($editingId)
                         {{ __('Actualizar') }}
                     @else
@@ -70,26 +70,26 @@
         </div>
     </div>
 
-    <div class="col-md-9">
+    <div class="col-md-10">
         <div class="card module-table-card shadow-sm border-0">
-            <div class="card-header bg-white py-3 px-3 border-bottom-0 d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div
+                class="card-header bg-white py-3 px-3 border-bottom-0 d-flex flex-wrap align-items-center justify-content-start gap-3">
                 <span class="fw-semibold mb-0">{{ __('Listado de roles') }}</span>
-                <div class="dashboard-table-search flex-grow-1 flex-md-grow-0" style="min-width: 200px; max-width: 320px;">
+
+                <div class="dashboard-table-search flex-grow-1 flex-md-grow-0"
+                    style="min-width: 200px; max-width: 320px;">
                     <div class="input-group input-group-sm shadow-sm rounded-3 overflow-hidden">
-                        <span class="input-group-text border-0 bg-white text-muted"><i class="fa-solid fa-magnifying-glass"></i></span>
-                        <input
-                            type="search"
-                            wire:model.live.debounce.350ms="search"
-                            class="form-control border-0"
-                            placeholder="{{ __('Buscar…') }}"
-                            aria-label="{{ __('Buscar') }}"
-                        >
+                        <input type="search" wire:model.live.debounce.350ms="search" class="form-control border-1"
+                            placeholder="{{ __('Buscar…') }}" aria-label="{{ __('Buscar') }}">
+                        <span class="input-group-text border-1 bg-white text-muted">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </span>
                     </div>
                 </div>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
+                    <table class="table table-hover table-sm  align-middle mb-0">
                         <thead class="table-light">
                             <tr>
                                 <th class="ps-3" style="width: 5rem;">{{ __('ID') }}</th>
@@ -104,23 +104,37 @@
                                     <td class="ps-3 text-muted small">{{ $role->id }}</td>
                                     <td>{{ \App\Livewire\RoleManager::etiquetasLista($role->administrador) }}</td>
                                     <td>{{ \App\Livewire\RoleManager::etiquetasLista($role->representante) }}</td>
-                                    <td class="text-end pe-3">
+                                    <td class="text-end pe-2">
                                         @if ($confirmingDeleteId === $role->id)
                                             <div class="d-inline-flex flex-column align-items-end gap-1">
                                                 <span class="small text-danger">{{ __('¿Eliminar este rol?') }}</span>
                                                 <div class="btn-group btn-group-sm">
-                                                    <button type="button" wire:click="delete" class="btn btn-danger">{{ __('Sí') }}</button>
-                                                    <button type="button" wire:click="cancelDelete" class="btn btn-outline-secondary">{{ __('No') }}</button>
+                                                    <button type="button" wire:click="delete" class="btn btn-danger btn-sm">
+                                                        {{ __('Sí') }}
+                                                    </button>
+                                                    <button type="button" wire:click="cancelDelete"
+                                                        class="btn btn-outline-secondary btn-sm">
+                                                        {{ __('No') }}
+                                                    </button>
                                                 </div>
                                             </div>
                                         @else
                                             <div class="d-inline-flex gap-1 justify-content-end">
-                                                <button type="button" wire:click="edit({{ $role->id }})" class="btn btn-light btn-icon border shadow-sm" title="{{ __('Editar') }}">
-                                                    <i class="fa-solid fa-pen text-secondary"></i>
+
+                                                <!-- Editar -->
+                                                <button type="button" wire:click="edit({{ $role->id }})"
+                                                    class="btn btn-light p-0 d-flex align-items-center justify-content-center"
+                                                    style="width:28px; height:28px;" title="{{ __('Editar') }}">
+                                                    <i class="fa-solid fa-pen-to-square text-warning"
+                                                        style="font-size:12px;"></i>
                                                 </button>
-                                                <button type="button" wire:click="askDelete({{ $role->id }})" class="btn btn-light btn-icon border shadow-sm" title="{{ __('Eliminar') }}">
-                                                    <i class="fa-solid fa-trash text-danger"></i>
+
+                                                <button type="button" wire:click="askDelete({{ $role->id }})"
+                                                    class="btn btn-light p-0 d-flex align-items-center justify-content-center"
+                                                    style="width:28px; height:28px;" title="{{ __('Eliminar') }}">
+                                                    <i class="fa-solid fa-trash text-danger" style="font-size:12px;"></i>
                                                 </button>
+
                                             </div>
                                         @endif
                                     </td>
@@ -134,9 +148,33 @@
                     </table>
                 </div>
             </div>
-            <div class="card-footer bg-white border-0 pt-2 pb-3 d-flex justify-content-center">
-                {{ $roles->links() }}
+            <div class="card-footer bg-white border-0 pt-2 pb-3">
+                <div class="d-flex justify-content-center">
+                    {{ $roles->links() }}
+                </div>
             </div>
         </div>
     </div>
 </div>
+<style>
+    .form-header {
+        background: #F9FAFD;
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    .btn-custom {
+        background: #FF0A35;
+        color: white;
+    }
+
+    .btn-custom:hover {
+        background: #e60023;
+        /* un poco más oscuro */
+        color: white;
+    }
+
+    .module-form-card {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+</style>

@@ -92,9 +92,8 @@
                     <table class="table table-hover table-sm  align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th class="ps-3" style="width: 4rem;">#</th>
-                                <th>{{ __('Prefijo') }}</th>
-                                <th>{{ __('Nombre') }}</th>
+                                <th class="ps-3" >{{ __('Prefijo') }}</th>
+                                <th>{{ __('Pais') }}</th>
                                 <th>{{ __('Coordenadas') }}</th>
                                 <th>{{ __('Zoom') }}</th>
                                 <th class="text-end pe-3" style="min-width: 8rem;">{{ __('Acciones') }}</th>
@@ -103,10 +102,7 @@
                         <tbody>
                             @forelse ($paises as $pai)
                                 <tr wire:key="pais-row-{{ $pai->id }}">
-                                    <td class="ps-3 text-muted small">
-                                        {{ ($paises->currentPage() - 1) * $paises->perPage() + $loop->iteration }}
-                                    </td>
-                                    <td>{{ $pai->prefijo }}</td>
+                                    <td class="ps-3" >{{ $pai->prefijo }}</td>
                                     <td class="fw-medium">{{ $pai->nombre }}</td>
                                     <td><span class="text-muted small">{{ $pai->coordenadas }}</span></td>
                                     <td><span class="text-muted small">{{ $pai->zoom }}</span></td>
