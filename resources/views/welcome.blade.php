@@ -15,171 +15,83 @@
         <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
             <div class="card-header bg-white border-0 p-1">
                 <ul class="nav nav-tabs dashboard-tabs border-0" id="dashboardTabs" role="tablist">
+
                     <li class="nav-item" role="presentation">
-                        <button
-                            class="nav-link active"
-                            id="tab-pais"
-                            data-bs-toggle="tab"
-                            data-bs-target="#pane-pais"
-                            type="button"
-                            role="tab"
-                            aria-controls="pane-pais"
-                            aria-selected="true"
-                        >
-                            {{ __('País') }}
+                        <button class="nav-link active" id="tab-pais" data-bs-toggle="tab" data-bs-target="#pane-pais" type="button">
+                            <i class="fa-solid fa-plus me-1"></i> {{ __('País') }}
                         </button>
                     </li>
+
                     <li class="nav-item" role="presentation">
-                        <button
-                            class="nav-link"
-                            id="tab-departamento"
-                            data-bs-toggle="tab"
-                            data-bs-target="#pane-departamento"
-                            type="button"
-                            role="tab"
-                            aria-controls="pane-departamento"
-                            aria-selected="false"
-                        >
-                            {{ __('Departamento') }}
+                        <button class="nav-link" id="tab-departamento" data-bs-toggle="tab" data-bs-target="#pane-departamento" type="button">
+                            <i class="fa-solid fa-plus me-1"></i> {{ __('Departamento') }}
                         </button>
                     </li>
+
                     <li class="nav-item" role="presentation">
-                        <button
-                            class="nav-link"
-                            id="tab-provincia"
-                            data-bs-toggle="tab"
-                            data-bs-target="#pane-provincia"
-                            type="button"
-                            role="tab"
-                            aria-controls="pane-provincia"
-                            aria-selected="false"
-                        >
-                            {{ __('Provincia') }}
+                        <button class="nav-link" id="tab-provincia" data-bs-toggle="tab" data-bs-target="#pane-provincia" type="button">
+                            <i class="fa-solid fa-plus me-1"></i> {{ __('Provincia') }}
                         </button>
                     </li>
+
                     <li class="nav-item" role="presentation">
-                        <button
-                            class="nav-link"
-                            id="tab-municipio"
-                            data-bs-toggle="tab"
-                            data-bs-target="#pane-municipio"
-                            type="button"
-                            role="tab"
-                            aria-controls="pane-municipio"
-                            aria-selected="false"
-                        >
-                            {{ __('Municipio') }}
+                        <button class="nav-link" id="tab-municipio" data-bs-toggle="tab" data-bs-target="#pane-municipio" type="button">
+                            <i class="fa-solid fa-plus me-1"></i> {{ __('Municipio') }}
                         </button>
                     </li>
+
                     <li class="nav-item" role="presentation">
-                        <button
-                            class="nav-link"
-                            id="tab-cargo"
-                            data-bs-toggle="tab"
-                            data-bs-target="#pane-cargo"
-                            type="button"
-                            role="tab"
-                            aria-controls="pane-cargo"
-                            aria-selected="false"
-                        >
-                            {{ __('Cargos') }}
+                        <button class="nav-link" id="tab-cargo" data-bs-toggle="tab" data-bs-target="#pane-cargo" type="button">
+                            <i class="fa-solid fa-plus me-1"></i> {{ __('Cargos') }}
                         </button>
                     </li>
+
                     <li class="nav-item" role="presentation">
-                        <button
-                            class="nav-link"
-                            id="tab-role"
-                            data-bs-toggle="tab"
-                            data-bs-target="#pane-role"
-                            type="button"
-                            role="tab"
-                            aria-controls="pane-role"
-                            aria-selected="false"
-                        >
-                            {{ __('Roles') }}
+                        <button class="nav-link" id="tab-role" data-bs-toggle="tab" data-bs-target="#pane-role" type="button">
+                            <i class="fa-solid fa-plus me-1"></i> {{ __('Roles') }}
                         </button>
                     </li>
+
                     <li class="nav-item" role="presentation">
-                        <button
-                            class="nav-link"
-                            id="tab-jerarquia"
-                            data-bs-toggle="tab"
-                            data-bs-target="#pane-jerarquia"
-                            type="button"
-                            role="tab"
-                            aria-controls="pane-jerarquia"
-                            aria-selected="false"
-                        >
-                            {{ __('Jerarquías') }}
+                        <button class="nav-link" id="tab-jerarquia" data-bs-toggle="tab" data-bs-target="#pane-jerarquia" type="button">
+                            <i class="fa-solid fa-plus me-1"></i> {{ __('Jerarquías') }}
                         </button>
                     </li>
+
                 </ul>
             </div>
+
             <div class="card-body bg-light p-3 p-md-4">
                 <div class="tab-content" id="dashboardTabsContent">
-                    <div
-                        class="tab-pane fade show active"
-                        id="pane-pais"
-                        role="tabpanel"
-                        aria-labelledby="tab-pais"
-                        tabindex="0"
-                    >
+
+                    <div class="tab-pane fade show active" id="pane-pais">
                         <livewire:pais-manager />
                     </div>
-                    <div
-                        class="tab-pane fade"
-                        id="pane-departamento"
-                        role="tabpanel"
-                        aria-labelledby="tab-departamento"
-                        tabindex="0"
-                    >
+
+                    <div class="tab-pane fade" id="pane-departamento">
                         <livewire:departamento-manager />
                     </div>
-                    <div
-                        class="tab-pane fade"
-                        id="pane-provincia"
-                        role="tabpanel"
-                        aria-labelledby="tab-provincia"
-                        tabindex="0"
-                    >
+
+                    <div class="tab-pane fade" id="pane-provincia">
                         <livewire:provincia-manager />
                     </div>
-                    <div
-                        class="tab-pane fade"
-                        id="pane-municipio"
-                        role="tabpanel"
-                        aria-labelledby="tab-municipio"
-                        tabindex="0"
-                    >
+
+                    <div class="tab-pane fade" id="pane-municipio">
                         <livewire:municipio-manager />
                     </div>
-                    <div
-                        class="tab-pane fade"
-                        id="pane-cargo"
-                        role="tabpanel"
-                        aria-labelledby="tab-cargo"
-                        tabindex="0"
-                    >
+
+                    <div class="tab-pane fade" id="pane-cargo">
                         <livewire:cargo-manager />
                     </div>
-                    <div
-                        class="tab-pane fade"
-                        id="pane-role"
-                        role="tabpanel"
-                        aria-labelledby="tab-role"
-                        tabindex="0"
-                    >
+
+                    <div class="tab-pane fade" id="pane-role">
                         <livewire:role-manager />
                     </div>
-                    <div
-                        class="tab-pane fade"
-                        id="pane-jerarquia"
-                        role="tabpanel"
-                        aria-labelledby="tab-jerarquia"
-                        tabindex="0"
-                    >
+
+                    <div class="tab-pane fade" id="pane-jerarquia">
                         <livewire:jerarquia-manager />
                     </div>
+
                 </div>
             </div>
         </div>
