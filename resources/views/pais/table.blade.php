@@ -6,7 +6,7 @@
 
                 <th>Prefijo</th>
                 <th>Nombre</th>
-                <th>Coordena</th>
+                <th>Coordenadas</th>
                 <th>Zoom</th>
 
                 <th></th>
@@ -19,7 +19,7 @@
 
                     <td>{{ $pai->prefijo }}</td>
                     <td>{{ $pai->nombre }}</td>
-                    <td>{{ $pai->coordena }}</td>
+                    <td>{{ $pai->coordenadas }}</td>
                     <td>{{ $pai->zoom }}</td>
 
                     <td>

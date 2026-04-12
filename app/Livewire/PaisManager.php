@@ -19,7 +19,7 @@ class PaisManager extends Component
 
     public string $nombre = '';
 
-    public string $coordena = '';
+    public string $coordenadas = '';
 
     public string $zoom = '';
 
@@ -51,7 +51,7 @@ class PaisManager extends Component
         $this->editingId = $pais->id;
         $this->prefijo = $pais->prefijo;
         $this->nombre = $pais->nombre;
-        $this->coordena = $pais->coordena;
+        $this->coordenadas = $pais->coordenadas;
         $this->zoom = (string) $pais->zoom;
 
         $this->successMessage = '';
@@ -66,7 +66,7 @@ class PaisManager extends Component
         $payload = [
             'prefijo' => $this->prefijo,
             'nombre' => $this->nombre,
-            'coordena' => $this->coordena,
+            'coordenadas' => $this->coordenadas,
             'zoom' => $this->zoom,
         ];
 
@@ -113,7 +113,7 @@ class PaisManager extends Component
     protected function clearFormFields(): void
     {
         $this->editingId = null;
-        $this->reset(['prefijo', 'nombre', 'coordena', 'zoom']);
+        $this->reset(['prefijo', 'nombre', 'coordenadas', 'zoom']);
         $this->resetValidation();
     }
 
@@ -133,7 +133,7 @@ class PaisManager extends Component
             $query->where(function ($q) use ($term) {
                 $q->where('prefijo', 'like', $term)
                     ->orWhere('nombre', 'like', $term)
-                    ->orWhere('coordena', 'like', $term)
+                    ->orWhere('coordenadas', 'like', $term)
                     ->orWhere('zoom', 'like', $term);
             });
         }

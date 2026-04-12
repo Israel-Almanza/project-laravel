@@ -23,7 +23,7 @@ class DepartamentoManager extends Component
 
     public ?int $pais_id = null;
 
-    public string $coordena = '';
+    public string $coordenadas = '';
 
     public string $zoom = '';
 
@@ -79,7 +79,7 @@ class DepartamentoManager extends Component
         $this->editingId = $departamento->id;
         $this->nombre = $departamento->nombre;
         $this->pais_id = $departamento->pais_id !== null ? (int) $departamento->pais_id : null;
-        $this->coordena = $departamento->coordena;
+        $this->coordenadas = $departamento->coordenadas;
         $this->zoom = (string) $departamento->zoom;
 
         $this->successMessage = '';
@@ -94,7 +94,7 @@ class DepartamentoManager extends Component
         $payload = [
             'nombre' => $this->nombre,
             'pais_id' => $this->pais_id,
-            'coordena' => $this->coordena,
+            'coordenadas' => $this->coordenadas,
             'zoom' => $this->zoom,
         ];
 
@@ -141,7 +141,7 @@ class DepartamentoManager extends Component
     protected function clearFormFields(): void
     {
         $this->editingId = null;
-        $this->reset(['nombre', 'pais_id', 'coordena', 'zoom']);
+        $this->reset(['nombre', 'pais_id', 'coordenadas', 'zoom']);
         $this->resetValidation();
     }
 
@@ -162,7 +162,7 @@ class DepartamentoManager extends Component
             $term = '%'.addcslashes($this->search, '%_\\').'%';
             $query->where(function ($q) use ($term) {
                 $q->where('nombre', 'like', $term)
-                    ->orWhere('coordena', 'like', $term)
+                    ->orWhere('coordenadas', 'like', $term)
                     ->orWhere('zoom', 'like', $term)
                     ->orWhereHas('pais', function ($pq) use ($term) {
                         $pq->where('nombre', 'like', $term);

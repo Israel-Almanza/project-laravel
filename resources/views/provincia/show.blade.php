@@ -19,7 +19,15 @@
                     </div>
 
                     <div class="card-body bg-white">
-                        
+
+                        <div class="form-group mb-2 mb20">
+                            <strong>Prefijo:</strong>
+                            {{ $provincia->prefijo }}
+                        </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Nombre:</strong>
+                            {{ $provincia->nombre }}
+                        </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Pais Id:</strong>
                             {{ $provincia->pais_id }}
@@ -29,8 +37,8 @@
                             {{ $provincia->departamento_id }}
                         </div>
                         <div class="form-group mb-2 mb20">
-                            <strong>Coordena:</strong>
-                            {{ $provincia->coordena }}
+                            <strong>Coordenadas:</strong>
+                            {{ $provincia->coordenadas }}
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Zoom:</strong>

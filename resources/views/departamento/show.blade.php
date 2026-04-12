@@ -29,8 +29,8 @@
                             {{ $departamento->pais?->nombre ?? '—' }}
                         </div>
                         <div class="form-group mb-2 mb20">
-                            <strong>Coordena:</strong>
-                            {{ $departamento->coordena }}
+                            <strong>Coordenadas:</strong>
+                            {{ $departamento->coordenadas }}
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Zoom:</strong>

@@ -24,7 +24,7 @@ class DepartamentoRequest extends FormRequest
         return [
             'nombre' => 'required|string',
             'pais_id' => 'required|integer|exists:pais,id',
-            'coordena' => 'required|string',
+            'coordenadas' => 'required|string',
             'zoom' => 'required|string',
         ];
     }

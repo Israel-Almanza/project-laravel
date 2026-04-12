@@ -10,12 +10,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property $id
  * @property $nombre
  * @property $pais_id
- * @property $coordena
+ * @property string $coordenadas
  * @property $zoom
  * @property $created_at
  * @property $updated_at
  * @property-read \App\Models\Pais|null $pais
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Provincia> $provincias
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Municipio> $municipios
  *
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
@@ -29,7 +30,7 @@ class Departamento extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['nombre', 'pais_id', 'coordena', 'zoom'];
+    protected $fillable = ['nombre', 'pais_id', 'coordenadas', 'zoom'];
 
     public function pais()
     {
@@ -39,5 +40,10 @@ class Departamento extends Model
     public function provincias()
     {
         return $this->hasMany(Provincia::class, 'departamento_id');
+    }
+
+    public function municipios()
+    {
+        return $this->hasMany(Municipio::class, 'departamento_id');
     }
 }

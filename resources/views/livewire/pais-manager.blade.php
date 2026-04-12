@@ -28,9 +28,9 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="pais-coordena" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Coordena') }}</label>
-                    <input type="text" id="pais-coordena" wire:model="coordena" class="form-control rounded-3 @error('coordena') is-invalid @enderror" placeholder="{{ __('Coordena') }}">
-                    @error('coordena')
+                    <label for="pais-coordenadas" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Coordenadas') }}</label>
+                    <input type="text" id="pais-coordenadas" wire:model="coordenadas" class="form-control rounded-3 @error('coordenadas') is-invalid @enderror" placeholder="{{ __('Coordenadas') }}">
+                    @error('coordenadas')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
@@ -81,7 +81,7 @@
                                 <th class="ps-3" style="width: 4rem;">#</th>
                                 <th>{{ __('Prefijo') }}</th>
                                 <th>{{ __('Nombre') }}</th>
-                                <th>{{ __('Coordena') }}</th>
+                                <th>{{ __('Coordenadas') }}</th>
                                 <th>{{ __('Zoom') }}</th>
                                 <th class="text-end pe-3" style="min-width: 8rem;">{{ __('Acciones') }}</th>
                             </tr>
@@ -92,7 +92,7 @@
                                     <td class="ps-3 text-muted small">{{ ($paises->currentPage() - 1) * $paises->perPage() + $loop->iteration }}</td>
                                     <td>{{ $pai->prefijo }}</td>
                                     <td class="fw-medium">{{ $pai->nombre }}</td>
-                                    <td><span class="text-muted small">{{ $pai->coordena }}</span></td>
+                                    <td><span class="text-muted small">{{ $pai->coordenadas }}</span></td>
                                     <td><span class="text-muted small">{{ $pai->zoom }}</span></td>
                                     <td class="text-end pe-3">
                                         @if ($confirmingDeleteId === $pai->id)

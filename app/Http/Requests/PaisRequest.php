@@ -24,7 +24,7 @@ class PaisRequest extends FormRequest
         return [
 			'prefijo' => 'required|string',
 			'nombre' => 'required|string',
-			'coordena' => 'required|string',
+            'coordenadas' => 'required|string',
 			'zoom' => 'required|string',
         ];
     }

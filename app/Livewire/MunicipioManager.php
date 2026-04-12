@@ -2,19 +2,20 @@
 
 namespace App\Livewire;
 
-use App\Http\Requests\ProvinciaRequest;
+use App\Http\Requests\MunicipioRequest;
 use App\Models\Departamento;
+use App\Models\Municipio;
 use App\Models\Pais;
 use App\Models\Provincia;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ProvinciaManager extends Component
+class MunicipioManager extends Component
 {
     use WithPagination;
 
-    private const PAGINATION_PAGE_NAME = 'provinciasPage';
+    private const PAGINATION_PAGE_NAME = 'municipiosPage';
 
     public ?int $editingId = null;
 
@@ -28,9 +29,14 @@ class ProvinciaManager extends Component
     /** @var array<int|string, string> */
     public array $departamentos = [];
 
+    /** @var array<int|string, string> */
+    public array $provincias = [];
+
     public ?int $pais_id = null;
 
     public ?int $departamento_id = null;
+
+    public ?int $provincia_id = null;
 
     public string $coordenadas = '';
 
@@ -51,6 +57,7 @@ class ProvinciaManager extends Component
     {
         $this->loadPaises();
         $this->loadDepartamentos();
+        $this->loadProvincias();
     }
 
     public function updatedPaisId(mixed $value): void
@@ -70,17 +77,53 @@ class ProvinciaManager extends Component
                 $this->departamento_id = null;
             }
         }
+
+        $this->syncProvinciaWithHierarchy();
     }
 
     public function updatedDepartamentoId(mixed $value): void
     {
         if ($value === '' || $value === null) {
             $this->departamento_id = null;
+        } else {
+            $this->departamento_id = (int) $value;
+        }
+
+        $this->syncProvinciaWithHierarchy();
+    }
+
+    public function updatedProvinciaId(mixed $value): void
+    {
+        if ($value === '' || $value === null) {
+            $this->provincia_id = null;
 
             return;
         }
 
-        $this->departamento_id = (int) $value;
+        $this->provincia_id = (int) $value;
+    }
+
+    protected function syncProvinciaWithHierarchy(): void
+    {
+        if ($this->provincia_id === null) {
+            return;
+        }
+
+        if ($this->pais_id === null || $this->departamento_id === null) {
+            $this->provincia_id = null;
+
+            return;
+        }
+
+        $valid = Provincia::query()
+            ->where('id', $this->provincia_id)
+            ->where('departamento_id', $this->departamento_id)
+            ->where('pais_id', $this->pais_id)
+            ->exists();
+
+        if (! $valid) {
+            $this->provincia_id = null;
+        }
     }
 
     protected function loadPaises(): void
@@ -108,15 +151,39 @@ class ProvinciaManager extends Component
             ->all();
     }
 
+    protected function loadProvincias(): void
+    {
+        $this->provincias = Provincia::query()
+            ->with(['departamento', 'pais'])
+            ->orderBy('nombre')
+            ->get()
+            ->mapWithKeys(function (Provincia $p) {
+                $label = $p->nombre;
+                if ($p->departamento) {
+                    $label .= ' ('.$p->departamento->nombre.')';
+                }
+
+                return [$p->id => $label];
+            })
+            ->all();
+    }
+
     protected function rules(): array
     {
         return array_merge(
-            (new ProvinciaRequest)->rules(),
+            (new MunicipioRequest)->rules(),
             [
                 'departamento_id' => [
                     'required',
                     'integer',
                     Rule::exists('departamentos', 'id')->where('pais_id', $this->pais_id),
+                ],
+                'provincia_id' => [
+                    'required',
+                    'integer',
+                    Rule::exists('provincias', 'id')
+                        ->where('departamento_id', $this->departamento_id)
+                        ->where('pais_id', $this->pais_id),
                 ],
             ]
         );
@@ -129,15 +196,16 @@ class ProvinciaManager extends Component
 
     public function edit(int $id): void
     {
-        $provincia = Provincia::query()->with(['pais', 'departamento'])->findOrFail($id);
+        $municipio = Municipio::query()->with(['pais', 'departamento', 'provincia'])->findOrFail($id);
 
-        $this->editingId = $provincia->id;
-        $this->prefijo = $provincia->prefijo ?? '';
-        $this->nombre = $provincia->nombre ?? '';
-        $this->pais_id = $provincia->pais_id !== null ? (int) $provincia->pais_id : null;
-        $this->departamento_id = $provincia->departamento_id !== null ? (int) $provincia->departamento_id : null;
-        $this->coordenadas = $provincia->coordenadas;
-        $this->zoom = (string) $provincia->zoom;
+        $this->editingId = $municipio->id;
+        $this->prefijo = $municipio->prefijo ?? '';
+        $this->nombre = $municipio->nombre ?? '';
+        $this->pais_id = $municipio->pais_id !== null ? (int) $municipio->pais_id : null;
+        $this->departamento_id = $municipio->departamento_id !== null ? (int) $municipio->departamento_id : null;
+        $this->provincia_id = $municipio->provincia_id !== null ? (int) $municipio->provincia_id : null;
+        $this->coordenadas = $municipio->coordenadas;
+        $this->zoom = (string) $municipio->zoom;
 
         $this->successMessage = '';
         $this->confirmingDeleteId = null;
@@ -153,20 +221,22 @@ class ProvinciaManager extends Component
             'nombre' => $this->nombre,
             'pais_id' => $this->pais_id,
             'departamento_id' => $this->departamento_id,
+            'provincia_id' => $this->provincia_id,
             'coordenadas' => $this->coordenadas,
             'zoom' => $this->zoom,
         ];
 
         if ($this->editingId !== null) {
-            Provincia::findOrFail($this->editingId)->update($payload);
-            $this->successMessage = __('Provincia updated successfully.');
+            Municipio::findOrFail($this->editingId)->update($payload);
+            $this->successMessage = __('Municipio updated successfully.');
         } else {
-            Provincia::create($payload);
-            $this->successMessage = __('Provincia created successfully.');
+            Municipio::create($payload);
+            $this->successMessage = __('Municipio created successfully.');
         }
 
         $this->clearFormFields();
         $this->loadDepartamentos();
+        $this->loadProvincias();
         $this->resetPage(self::PAGINATION_PAGE_NAME);
     }
 
@@ -187,22 +257,22 @@ class ProvinciaManager extends Component
         }
 
         $id = $this->confirmingDeleteId;
-        Provincia::findOrFail($id)->delete();
+        Municipio::findOrFail($id)->delete();
 
         if ($this->editingId === $id) {
             $this->clearFormFields();
         }
 
         $this->confirmingDeleteId = null;
-        $this->successMessage = __('Provincia deleted successfully.');
-        $this->loadDepartamentos();
+        $this->successMessage = __('Municipio deleted successfully.');
+        $this->loadProvincias();
         $this->resetPage(self::PAGINATION_PAGE_NAME);
     }
 
     protected function clearFormFields(): void
     {
         $this->editingId = null;
-        $this->reset(['prefijo', 'nombre', 'pais_id', 'departamento_id', 'coordenadas', 'zoom']);
+        $this->reset(['prefijo', 'nombre', 'pais_id', 'departamento_id', 'provincia_id', 'coordenadas', 'zoom']);
         $this->resetValidation();
     }
 
@@ -215,8 +285,8 @@ class ProvinciaManager extends Component
 
     public function render()
     {
-        $query = Provincia::query()
-            ->with(['pais', 'departamento'])
+        $query = Municipio::query()
+            ->with(['pais', 'departamento', 'provincia'])
             ->orderByDesc('id');
 
         if ($this->search !== '') {
@@ -226,17 +296,14 @@ class ProvinciaManager extends Component
                     ->orWhere('nombre', 'like', $term)
                     ->orWhere('coordenadas', 'like', $term)
                     ->orWhere('zoom', 'like', $term)
-                    ->orWhereHas('pais', function ($pq) use ($term) {
-                        $pq->where('nombre', 'like', $term);
-                    })
-                    ->orWhereHas('departamento', function ($dq) use ($term) {
-                        $dq->where('nombre', 'like', $term);
-                    });
+                    ->orWhereHas('pais', fn ($pq) => $pq->where('nombre', 'like', $term))
+                    ->orWhereHas('departamento', fn ($dq) => $dq->where('nombre', 'like', $term))
+                    ->orWhereHas('provincia', fn ($rq) => $rq->where('nombre', 'like', $term));
             });
         }
 
-        return view('livewire.provincia-manager', [
-            'provincias' => $query->paginate(20, ['*'], self::PAGINATION_PAGE_NAME),
+        return view('livewire.municipio-manager', [
+            'municipios' => $query->paginate(20, ['*'], self::PAGINATION_PAGE_NAME),
         ]);
     }
 }

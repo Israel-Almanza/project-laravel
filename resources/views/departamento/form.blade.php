@@ -19,9 +19,9 @@
             {!! $errors->first('pais_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
-            <label for="coordena" class="form-label">{{ __('Coordena') }}</label>
-            <input type="text" name="coordena" class="form-control @error('coordena') is-invalid @enderror" value="{{ old('coordena', $departamento?->coordena) }}" id="coordena" placeholder="Coordena">
-            {!! $errors->first('coordena', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            <label for="coordenadas" class="form-label">{{ __('Coordenadas') }}</label>
+            <input type="text" name="coordenadas" class="form-control @error('coordenadas') is-invalid @enderror" value="{{ old('coordenadas', $departamento?->coordenadas) }}" id="coordenadas" placeholder="{{ __('Coordenadas') }}">
+            {!! $errors->first('coordenadas', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
             <label for="zoom" class="form-label">{{ __('Zoom') }}</label>

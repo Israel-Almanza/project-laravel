@@ -21,6 +21,13 @@
                     @enderror
                 </div>
                 <div class="mb-3">
+                    <label for="prov-nombre" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Nombre') }}</label>
+                    <input type="text" id="prov-nombre" wire:model="nombre" class="form-control rounded-3 @error('nombre') is-invalid @enderror" placeholder="{{ __('Nombre') }}">
+                    @error('nombre')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
                     <label for="prov-pais-id" class="form-label small text-muted text-uppercase fw-semibold">{{ __('País') }}</label>
                     <select id="prov-pais-id" wire:model="pais_id" class="form-select rounded-3 @error('pais_id') is-invalid @enderror">
                         <option value="">{{ __('Seleccione un país') }}</option>
@@ -45,9 +52,9 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="prov-coordena" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Coordenadas') }}</label>
-                    <input type="text" id="prov-coordena" wire:model="coordena" class="form-control rounded-3 @error('coordena') is-invalid @enderror" placeholder="{{ __('Coordenadas') }}">
-                    @error('coordena')
+                    <label for="prov-coordenadas" class="form-label small text-muted text-uppercase fw-semibold">{{ __('Coordenadas') }}</label>
+                    <input type="text" id="prov-coordenadas" wire:model="coordenadas" class="form-control rounded-3 @error('coordenadas') is-invalid @enderror" placeholder="{{ __('Coordenadas') }}">
+                    @error('coordenadas')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
@@ -97,6 +104,7 @@
                             <tr>
                                 <th class="ps-3" style="width: 4rem;">#</th>
                                 <th>{{ __('Prefijo') }}</th>
+                                <th>{{ __('Nombre') }}</th>
                                 <th>{{ __('País') }}</th>
                                 <th>{{ __('Departamento') }}</th>
                                 <th>{{ __('Coordenadas') }}</th>
@@ -109,9 +117,10 @@
                                 <tr wire:key="provincia-row-{{ $prov->id }}">
                                     <td class="ps-3 text-muted small">{{ ($provincias->currentPage() - 1) * $provincias->perPage() + $loop->iteration }}</td>
                                     <td class="fw-medium">{{ $prov->prefijo }}</td>
+                                    <td>{{ $prov->nombre }}</td>
                                     <td>{{ $prov->pais?->nombre ?? '—' }}</td>
                                     <td>{{ $prov->departamento?->nombre ?? '—' }}</td>
-                                    <td><span class="text-muted small">{{ $prov->coordena }}</span></td>
+                                    <td><span class="text-muted small">{{ $prov->coordenadas }}</span></td>
                                     <td><span class="text-muted small">{{ $prov->zoom }}</span></td>
                                     <td class="text-end pe-3">
                                         @if ($confirmingDeleteId === $prov->id)
@@ -136,7 +145,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center text-muted py-5">{{ __('No hay provincias registradas.') }}</td>
+                                    <td colspan="8" class="text-center text-muted py-5">{{ __('No hay provincias registradas.') }}</td>
                                 </tr>
                             @endforelse
                         </tbody>

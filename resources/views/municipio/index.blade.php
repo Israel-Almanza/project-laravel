@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Provincia
+    Municipio
 @endsection
 
 @section('content')
@@ -13,11 +13,11 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Provincia') }}
+                                {{ __('Municipio') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('provincias.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('municipios.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Create New') }}
                                 </a>
                               </div>
@@ -36,28 +36,34 @@
                                     <tr>
                                         <th>No</th>
                                         
+										<th>Prefijo</th>
 										<th>Pais Id</th>
 										<th>Departamento Id</th>
-										<th>Coordenadas</th>
+										<th>Provincia Id</th>
+										<th>Nombre</th>
+										<th>Coordena</th>
 										<th>Zoom</th>
 
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($provincias as $provincia)
+                                    @foreach ($municipios as $municipio)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $provincia->pais_id }}</td>
-											<td>{{ $provincia->departamento_id }}</td>
-											<td>{{ $provincia->coordenadas }}</td>
-											<td>{{ $provincia->zoom }}</td>
+											<td>{{ $municipio->prefijo }}</td>
+											<td>{{ $municipio->pais_id }}</td>
+											<td>{{ $municipio->departamento_id }}</td>
+											<td>{{ $municipio->provincia_id }}</td>
+											<td>{{ $municipio->nombre }}</td>
+											<td>{{ $municipio->coordenadas }}</td>
+											<td>{{ $municipio->zoom }}</td>
 
                                             <td>
-                                                <form action="{{ route('provincias.destroy',$provincia->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('provincias.show',$provincia->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('provincias.edit',$provincia->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                <form action="{{ route('municipios.destroy',$municipio->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('municipios.show',$municipio->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('municipios.edit',$municipio->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
@@ -70,7 +76,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $provincias->links() !!}
+                {!! $municipios->links() !!}
             </div>
         </div>
     </div>

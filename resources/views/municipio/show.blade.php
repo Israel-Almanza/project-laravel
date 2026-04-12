@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $pais->name ?? __('Show') . " " . __('Pais') }}
+    {{ $municipio->name ?? __('Show') . " " . __('Municipio') }}
 @endsection
 
 @section('content')
@@ -11,10 +11,10 @@
                 <div class="card">
                     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                         <div class="float-left">
-                            <span class="card-title">{{ __('Show') }} Pais</span>
+                            <span class="card-title">{{ __('Show') }} Municipio</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary btn-sm" href="{{ route('pais.index') }}"> {{ __('Back') }}</a>
+                            <a class="btn btn-primary btn-sm" href="{{ route('municipios.index') }}"> {{ __('Back') }}</a>
                         </div>
                     </div>
 
@@ -22,19 +22,31 @@
                         
                         <div class="form-group mb-2 mb20">
                             <strong>Prefijo:</strong>
-                            {{ $pais->prefijo }}
+                            {{ $municipio->prefijo }}
+                        </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Pais Id:</strong>
+                            {{ $municipio->pais_id }}
+                        </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Departamento Id:</strong>
+                            {{ $municipio->departamento_id }}
+                        </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Provincia Id:</strong>
+                            {{ $municipio->provincia_id }}
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Nombre:</strong>
-                            {{ $pais->nombre }}
+                            {{ $municipio->nombre }}
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Coordenadas:</strong>
-                            {{ $pais->coordenadas }}
+                            {{ $municipio->coordenadas }}
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Zoom:</strong>
-                            {{ $pais->zoom }}
+                            {{ $municipio->zoom }}
                         </div>
 
                     </div>

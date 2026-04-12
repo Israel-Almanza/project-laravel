@@ -58,16 +58,18 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <span class="nav-link disabled" tabindex="-1">{{ __('Municipio') }}</span>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <span class="nav-link disabled" tabindex="-1">{{ __('Cargos') }}</span>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <span class="nav-link disabled" tabindex="-1">{{ __('Roles') }}</span>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <span class="nav-link disabled" tabindex="-1">{{ __('Jerarquías') }}</span>
+                        <button
+                            class="nav-link"
+                            id="tab-municipio"
+                            data-bs-toggle="tab"
+                            data-bs-target="#pane-municipio"
+                            type="button"
+                            role="tab"
+                            aria-controls="pane-municipio"
+                            aria-selected="false"
+                        >
+                            {{ __('Municipio') }}
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -99,6 +101,15 @@
                         tabindex="0"
                     >
                         <livewire:provincia-manager />
+                    </div>
+                    <div
+                        class="tab-pane fade"
+                        id="pane-municipio"
+                        role="tabpanel"
+                        aria-labelledby="tab-municipio"
+                        tabindex="0"
+                    >
+                        <livewire:municipio-manager />
                     </div>
                 </div>
             </div>

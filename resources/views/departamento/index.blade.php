@@ -38,7 +38,7 @@
                                         
 										<th>Nombre</th>
 										<th>Pais</th>
-										<th>Coordena</th>
+										<th>Coordenadas</th>
 										<th>Zoom</th>
 
                                         <th></th>
@@ -51,7 +51,7 @@
                                             
 											<td>{{ $departamento->nombre }}</td>
 											<td>{{ $departamento->pais?->nombre ?? '—' }}</td>
-											<td>{{ $departamento->coordena }}</td>
+											<td>{{ $departamento->coordenadas }}</td>
 											<td>{{ $departamento->zoom }}</td>
 
                                             <td>
