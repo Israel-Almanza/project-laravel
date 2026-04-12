@@ -11,9 +11,10 @@
 @endpush
 
 @section('content')
-    <div class="container dashboard-shell py-0">
-        <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
-            <div class="card-header bg-white border-0 p-1">
+    <div class="dashboard-shell p-0 m-0 w-100" >
+        <div class="card-header border-0 p-1">
+            
+            <div class="card-header border-0 p-1">
                 <ul class="nav nav-tabs dashboard-tabs border-0" id="dashboardTabs" role="tablist">
 
                     <li class="nav-item" role="presentation">
@@ -61,7 +62,7 @@
                 </ul>
             </div>
 
-            <div class="card-body bg-light p-3 p-md-4">
+            <div class="card-body p-2 p-md-3 m-0">
                 <div class="tab-content" id="dashboardTabsContent">
 
                     <div class="tab-pane fade show active" id="pane-pais">
@@ -94,6 +95,7 @@
 
                 </div>
             </div>
+
         </div>
     </div>
 @endsection

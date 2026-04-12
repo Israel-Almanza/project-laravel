@@ -1,6 +1,7 @@
 // Panel administrativo: tabs + tarjetas módulo
 .dashboard-shell {
     .dashboard-tabs {
+        background-color: #fff;
         gap: 0.25rem;
         flex-wrap: nowrap;
         overflow-x: auto;
@@ -13,6 +14,7 @@
             border-radius: 0.5rem 0.5rem 0 0;
             padding: 0.65rem 1rem;
             white-space: nowrap;
+            font-size: 600;
             transition: color 0.15s ease, background-color 0.15s ease;
 
             &:hover:not(.disabled):not(.active) {
@@ -21,9 +23,9 @@
             }
 
             &.active {
-                color: #fff;
-                background-color: var(--bs-danger);
-                font-weight: 600;
+                color: #FF0A35;
+                font-weight: bold;
+                border-bottom: 3px solid #FF0A35;
             }
 
             &.disabled {
@@ -42,12 +44,24 @@
         font-size: 1.05rem;
     }
 
-    .module-table-card .table thead th {
+    .module-table-card .table th {
+        padding: 0px;
         font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 0.03em;
-        color: $secondary;
-        border-bottom-width: 1px;
+    }
+
+    .module-table-card .table td {
+        padding: 0px;
+        font-size: 0.8rem;
+        background-color: #fff;
+    }
+
+    .pagination {
+        margin-bottom: 0;
+    }
+
+    .page-item.active .page-link {
+        background-color: #FF0A35;
+        border-color: #FF0A35;
     }
 
     .module-table-card .table tbody tr:hover {
@@ -70,4 +84,8 @@
     .role-ts-form .ts-control {
         border-radius: 0.75rem;
     }
+}
+
+body {
+    background-color: #EDF2F9;
 }

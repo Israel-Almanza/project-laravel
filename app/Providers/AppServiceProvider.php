@@ -23,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrapFive();
         // 🔥 FORZAR HTTPS (clave en Render)
-        URL::forceScheme('https');
+        // URL::forceScheme('https');
     }
 }
