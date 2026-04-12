@@ -70,7 +70,7 @@
         <div class="card module-table-card shadow-sm border-0">
             <div
                 class="card-header bg-white py-3 px-3 border-bottom-0 d-flex flex-wrap align-items-center justify-content-start gap-3">
-                <span class="fw-semibold mb-0">{{ __('Listado de departamentos') }}</span>
+                <span class="fw-semibold mb-0">{{ __('Departamento/Estado/Región') }}</span>
 
                 <div class="dashboard-table-search flex-grow-1 flex-md-grow-0"
                     style="min-width: 200px; max-width: 320px;">
@@ -88,8 +88,7 @@
                     <table class="table table-hover table-sm  align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th class="ps-3" style="width: 4rem;">#</th>
-                                <th>{{ __('Nombre') }}</th>
+                                <th class="ps-3">{{ __('Departamento/Estado/Región') }}</th>
                                 <th>{{ __('País') }}</th>
                                 <th>{{ __('Coordenadas') }}</th>
                                 <th>{{ __('Zoom') }}</th>
@@ -99,8 +98,7 @@
                         <tbody>
                             @forelse ($departamentos as $depto)
                                 <tr wire:key="departamento-row-{{ $depto->id }}">
-                                    <td class="ps-3 text-muted small">{{ ($departamentos->currentPage() - 1) * $departamentos->perPage() + $loop->iteration }}</td>
-                                    <td class="fw-medium">{{ $depto->nombre }}</td>
+                                    <td class="ps-3">{{ $depto->nombre }}</td>
                                     <td>{{ $depto->pais?->nombre ?? '—' }}</td>
                                     <td><span class="text-muted small">{{ $depto->coordenadas }}</span></td>
                                     <td><span class="text-muted small">{{ $depto->zoom }}</span></td>

@@ -96,7 +96,7 @@
         <div class="card module-table-card shadow-sm border-0">
             <div
                 class="card-header bg-white py-3 px-3 border-bottom-0 d-flex flex-wrap align-items-center justify-content-start gap-3">
-                <span class="fw-semibold mb-0">{{ __('Listado de municipios') }}</span>
+                <span class="fw-semibold mb-0">{{ __('Municipio/Comuna/Ciudad') }}</span>
 
                 <div class="dashboard-table-search flex-grow-1 flex-md-grow-0"
                     style="min-width: 200px; max-width: 320px;">
@@ -114,9 +114,8 @@
                     <table class="table table-hover table-sm  align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th class="ps-3" style="width: 4rem;">#</th>
-                                <th>{{ __('Prefijo') }}</th>
-                                <th>{{ __('Nombre') }}</th>
+                                <th class="ps-3">{{ __('Prefijo') }}</th>
+                                <th>{{ __('Municipio') }}</th>
                                 <th>{{ __('País') }}</th>
                                 <th>{{ __('Departamento') }}</th>
                                 <th>{{ __('Provincia') }}</th>
@@ -128,8 +127,7 @@
                         <tbody>
                             @forelse ($municipios as $mun)
                                 <tr wire:key="municipio-row-{{ $mun->id }}">
-                                    <td class="ps-3 text-muted small">{{ ($municipios->currentPage() - 1) * $municipios->perPage() + $loop->iteration }}</td>
-                                    <td class="fw-medium">{{ $mun->prefijo }}</td>
+                                    <td class="ps-3">{{ $mun->prefijo }}</td>
                                     <td>{{ $mun->nombre }}</td>
                                     <td>{{ $mun->pais?->nombre ?? '—' }}</td>
                                     <td>{{ $mun->departamento?->nombre ?? '—' }}</td>

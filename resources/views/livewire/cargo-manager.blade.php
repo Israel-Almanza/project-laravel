@@ -46,7 +46,7 @@
         <div class="card module-table-card shadow-sm border-0">
             <div
                 class="card-header bg-white py-3 px-3 border-bottom-0 d-flex flex-wrap align-items-center justify-content-start gap-3">
-                <span class="fw-semibold mb-0">{{ __('Listado de cargos') }}</span>
+                <span class="fw-semibold mb-0">{{ __('Cargo') }}</span>
 
                 <div class="dashboard-table-search flex-grow-1 flex-md-grow-0"
                     style="min-width: 200px; max-width: 320px;">
@@ -64,8 +64,7 @@
                     <table class="table table-hover table-sm  align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th class="ps-3" style="width: 5rem;">{{ __('ID') }}</th>
-                                <th>{{ __('Nombre') }}</th>
+                                <th class="ps-3">{{ __('Cargo') }}</th>
                                 <th>{{ __('Prefijo') }}</th>
                                 <th class="text-end pe-3" style="min-width: 8rem;">{{ __('Acciones') }}</th>
                             </tr>
@@ -73,8 +72,7 @@
                         <tbody>
                             @forelse ($cargos as $cargo)
                                 <tr wire:key="cargo-row-{{ $cargo->id }}">
-                                    <td class="ps-3 text-muted small">{{ $cargo->id }}</td>
-                                    <td class="fw-medium">{{ $cargo->nombre }}</td>
+                                    <td class="ps-3">{{ $cargo->nombre }}</td>
                                     <td>{{ $cargo->prefijo }}</td>
                                     <td class="text-end pe-2">
                                         @if ($confirmingDeleteId === $cargo->id)

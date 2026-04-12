@@ -46,7 +46,7 @@
         <div class="card module-table-card shadow-sm border-0">
             <div
                 class="card-header bg-white py-3 px-3 border-bottom-0 d-flex flex-wrap align-items-center justify-content-start gap-3">
-                <span class="fw-semibold mb-0">{{ __('Listado de jerarquías') }}</span>
+                <span class="fw-semibold mb-0">{{ __('Jerarquías') }}</span>
 
                 <div class="dashboard-table-search flex-grow-1 flex-md-grow-0"
                     style="min-width: 200px; max-width: 320px;">
@@ -64,17 +64,15 @@
                     <table class="table table-hover table-sm  align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th class="ps-3" style="width: 5rem;">{{ __('ID') }}</th>
-                                <th>{{ __('Prefijo') }}</th>
-                                <th>{{ __('Organización') }}</th>
+                                <th class="ps-3">{{ __('Prefijo') }}</th>
+                                <th>{{ __('Nivel de organización') }}</th>
                                 <th class="text-end pe-3" style="min-width: 8rem;">{{ __('Acciones') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($jerarquias as $jerarquia)
                                 <tr wire:key="jerarquia-row-{{ $jerarquia->id }}">
-                                    <td class="ps-3 text-muted small">{{ $jerarquia->id }}</td>
-                                    <td class="fw-medium">{{ $jerarquia->prefijo }}</td>
+                                    <td class="ps-3">{{ $jerarquia->prefijo }}</td>
                                     <td>{{ $jerarquia->organizacion }}</td>
                                     <td class="text-end pe-2">
                                         @if ($confirmingDeleteId === $jerarquia->id)

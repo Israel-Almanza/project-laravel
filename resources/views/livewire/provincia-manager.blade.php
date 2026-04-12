@@ -88,7 +88,7 @@
         <div class="card module-table-card shadow-sm border-0">
             <div
                 class="card-header bg-white py-3 px-3 border-bottom-0 d-flex flex-wrap align-items-center justify-content-start gap-3">
-                <span class="fw-semibold mb-0">{{ __('Listado de provincias') }}</span>
+                <span class="fw-semibold mb-0">{{ __('Condado/Provincia') }}</span>
 
                 <div class="dashboard-table-search flex-grow-1 flex-md-grow-0"
                     style="min-width: 200px; max-width: 320px;">
@@ -106,9 +106,8 @@
                     <table class="table table-hover table-sm  align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th class="ps-3" style="width: 4rem;">#</th>
-                                <th>{{ __('Prefijo') }}</th>
-                                <th>{{ __('Nombre') }}</th>
+                                <th class="ps-3">{{ __('Prefijo') }}</th>
+                                <th>{{ __('Condado/Provincia') }}</th>
                                 <th>{{ __('País') }}</th>
                                 <th>{{ __('Departamento') }}</th>
                                 <th>{{ __('Coordenadas') }}</th>
@@ -119,8 +118,7 @@
                         <tbody>
                             @forelse ($provincias as $prov)
                                 <tr wire:key="provincia-row-{{ $prov->id }}">
-                                    <td class="ps-3 text-muted small">{{ ($provincias->currentPage() - 1) * $provincias->perPage() + $loop->iteration }}</td>
-                                    <td class="fw-medium">{{ $prov->prefijo }}</td>
+                                    <td class="ps-3">{{ $prov->prefijo }}</td>
                                     <td>{{ $prov->nombre }}</td>
                                     <td>{{ $prov->pais?->nombre ?? '—' }}</td>
                                     <td>{{ $prov->departamento?->nombre ?? '—' }}</td>
