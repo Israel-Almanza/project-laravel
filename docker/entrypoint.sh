@@ -11,4 +11,4 @@ php artisan route:cache
 php artisan view:cache
 
 nginx
-exec php-fpm
+exec php-fpm -F
