@@ -11,9 +11,9 @@
 @endpush
 
 @section('content')
-    <div class="container dashboard-shell py-4">
+    <div class="container dashboard-shell py-0">
         <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
-            <div class="card-header bg-white border-0 pt-3 px-3 pb-0">
+            <div class="card-header bg-white border-0 p-1">
                 <ul class="nav nav-tabs dashboard-tabs border-0" id="dashboardTabs" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button
