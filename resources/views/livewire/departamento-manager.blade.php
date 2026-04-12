@@ -1,12 +1,12 @@
-<div class="row" wire:key="pais-manager-root">
+<div class="row" wire:key="departamento-manager-root">
     <div class="col-md-3">
         <div class="card card-default">
             <div class="card-header">
                 <span class="card-title">
                     @if ($editingId)
-                        {{ __('Update') }} {{ __('Pais') }}
+                        {{ __('Update') }} {{ __('Departamento') }}
                     @else
-                        {{ __('Create') }} {{ __('Pais') }}
+                        {{ __('Create') }} {{ __('Departamento') }}
                     @endif
                 </span>
             </div>
@@ -16,29 +16,29 @@
                 @endif
 
                 <div class="mb-3">
-                    <label for="pais-prefijo" class="form-label">{{ __('Prefijo') }}</label>
-                    <input type="text" id="pais-prefijo" wire:model="prefijo" class="form-control @error('prefijo') is-invalid @enderror" placeholder="{{ __('Prefijo') }}">
-                    @error('prefijo')
-                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="pais-nombre" class="form-label">{{ __('Nombre') }}</label>
-                    <input type="text" id="pais-nombre" wire:model="nombre" class="form-control @error('nombre') is-invalid @enderror" placeholder="{{ __('Nombre') }}">
+                    <label for="dept-nombre" class="form-label">{{ __('Nombre') }}</label>
+                    <input type="text" id="dept-nombre" wire:model="nombre" class="form-control @error('nombre') is-invalid @enderror" placeholder="{{ __('Nombre') }}">
                     @error('nombre')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="pais-coordena" class="form-label">{{ __('Coordena') }}</label>
-                    <input type="text" id="pais-coordena" wire:model="coordena" class="form-control @error('coordena') is-invalid @enderror" placeholder="{{ __('Coordena') }}">
+                    <label for="dept-pais" class="form-label">{{ __('Pais') }}</label>
+                    <input type="text" id="dept-pais" wire:model="pais" class="form-control @error('pais') is-invalid @enderror" placeholder="{{ __('Pais') }}">
+                    @error('pais')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="dept-coordena" class="form-label">{{ __('Coordena') }}</label>
+                    <input type="text" id="dept-coordena" wire:model="coordena" class="form-control @error('coordena') is-invalid @enderror" placeholder="{{ __('Coordena') }}">
                     @error('coordena')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="pais-zoom" class="form-label">{{ __('Zoom') }}</label>
-                    <input type="text" id="pais-zoom" wire:model="zoom" class="form-control @error('zoom') is-invalid @enderror" placeholder="{{ __('Zoom') }}">
+                    <label for="dept-zoom" class="form-label">{{ __('Zoom') }}</label>
+                    <input type="text" id="dept-zoom" wire:model="zoom" class="form-control @error('zoom') is-invalid @enderror" placeholder="{{ __('Zoom') }}">
                     @error('zoom')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
@@ -63,7 +63,7 @@
     <div class="col-md-9">
         <div class="card card-default">
             <div class="card-header">
-                <span class="card-title">{{ __('Pais') }}</span>
+                <span class="card-title">{{ __('Departamento') }}</span>
             </div>
             <div class="card-body bg-white">
                 <div class="table-responsive">
@@ -71,39 +71,39 @@
                         <thead class="thead">
                             <tr>
                                 <th>No</th>
-                                <th>{{ __('Prefijo') }}</th>
                                 <th>{{ __('Nombre') }}</th>
+                                <th>{{ __('Pais') }}</th>
                                 <th>{{ __('Coordena') }}</th>
                                 <th>{{ __('Zoom') }}</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($paises as $pai)
-                                <tr wire:key="pais-row-{{ $pai->id }}">
-                                    <td>{{ ($paises->currentPage() - 1) * $paises->perPage() + $loop->iteration }}</td>
-                                    <td>{{ $pai->prefijo }}</td>
-                                    <td>{{ $pai->nombre }}</td>
-                                    <td>{{ $pai->coordena }}</td>
-                                    <td>{{ $pai->zoom }}</td>
+                            @forelse ($departamentos as $depto)
+                                <tr wire:key="departamento-row-{{ $depto->id }}">
+                                    <td>{{ ($departamentos->currentPage() - 1) * $departamentos->perPage() + $loop->iteration }}</td>
+                                    <td>{{ $depto->nombre }}</td>
+                                    <td>{{ $depto->pais }}</td>
+                                    <td>{{ $depto->coordena }}</td>
+                                    <td>{{ $depto->zoom }}</td>
                                     <td style="min-width: 220px;">
-                                        @if ($confirmingDeleteId === $pai->id)
-                                            <span class="small text-danger d-block mb-1">{{ __('Are you sure you want to delete this country?') }}</span>
+                                        @if ($confirmingDeleteId === $depto->id)
+                                            <span class="small text-danger d-block mb-1">{{ __('Are you sure you want to delete this department?') }}</span>
                                             <div class="d-flex flex-wrap gap-1">
                                                 <button type="button" wire:click="delete" class="btn btn-danger btn-sm">{{ __('Confirm') }}</button>
                                                 <button type="button" wire:click="cancelDelete" class="btn btn-secondary btn-sm">{{ __('Cancel') }}</button>
                                             </div>
                                         @else
                                             <div class="d-flex flex-wrap gap-1">
-                                                <button type="button" wire:click="edit({{ $pai->id }})" class="btn btn-success btn-sm">{{ __('Edit') }}</button>
-                                                <button type="button" wire:click="askDelete({{ $pai->id }})" class="btn btn-danger btn-sm">{{ __('Delete') }}</button>
+                                                <button type="button" wire:click="edit({{ $depto->id }})" class="btn btn-success btn-sm">{{ __('Edit') }}</button>
+                                                <button type="button" wire:click="askDelete({{ $depto->id }})" class="btn btn-danger btn-sm">{{ __('Delete') }}</button>
                                             </div>
                                         @endif
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="text-center text-muted">{{ __('No countries yet.') }}</td>
+                                    <td colspan="6" class="text-center text-muted">{{ __('No departments yet.') }}</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -112,7 +112,7 @@
             </div>
         </div>
         <div class="mt-2">
-            {{ $paises->links() }}
+            {{ $departamentos->links() }}
         </div>
     </div>
 </div>

@@ -2,22 +2,22 @@
 
 namespace App\Livewire;
 
-use App\Http\Requests\PaisRequest;
-use App\Models\Pais;
+use App\Http\Requests\DepartamentoRequest;
+use App\Models\Departamento;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class PaisManager extends Component
+class DepartamentoManager extends Component
 {
     use WithPagination;
 
-    private const PAGINATION_PAGE_NAME = 'paisesPage';
+    private const PAGINATION_PAGE_NAME = 'departamentosPage';
 
     public ?int $editingId = null;
 
-    public string $prefijo = '';
-
     public string $nombre = '';
+
+    public string $pais = '';
 
     public string $coordena = '';
 
@@ -29,7 +29,7 @@ class PaisManager extends Component
 
     protected function rules(): array
     {
-        return (new PaisRequest)->rules();
+        return (new DepartamentoRequest)->rules();
     }
 
     public function cancel(): void
@@ -39,13 +39,13 @@ class PaisManager extends Component
 
     public function edit(int $id): void
     {
-        $pais = Pais::findOrFail($id);
+        $departamento = Departamento::findOrFail($id);
 
-        $this->editingId = $pais->id;
-        $this->prefijo = $pais->prefijo;
-        $this->nombre = $pais->nombre;
-        $this->coordena = $pais->coordena;
-        $this->zoom = (string) $pais->zoom;
+        $this->editingId = $departamento->id;
+        $this->nombre = $departamento->nombre;
+        $this->pais = $departamento->pais;
+        $this->coordena = $departamento->coordena;
+        $this->zoom = (string) $departamento->zoom;
 
         $this->successMessage = '';
         $this->confirmingDeleteId = null;
@@ -57,18 +57,18 @@ class PaisManager extends Component
         $this->validate();
 
         $payload = [
-            'prefijo' => $this->prefijo,
             'nombre' => $this->nombre,
+            'pais' => $this->pais,
             'coordena' => $this->coordena,
             'zoom' => $this->zoom,
         ];
 
         if ($this->editingId !== null) {
-            Pais::findOrFail($this->editingId)->update($payload);
-            $this->successMessage = __('Pais updated successfully.');
+            Departamento::findOrFail($this->editingId)->update($payload);
+            $this->successMessage = __('Departamento updated successfully.');
         } else {
-            Pais::create($payload);
-            $this->successMessage = __('Pais created successfully.');
+            Departamento::create($payload);
+            $this->successMessage = __('Departamento created successfully.');
         }
 
         $this->clearFormFields();
@@ -92,21 +92,21 @@ class PaisManager extends Component
         }
 
         $id = $this->confirmingDeleteId;
-        Pais::findOrFail($id)->delete();
+        Departamento::findOrFail($id)->delete();
 
         if ($this->editingId === $id) {
             $this->clearFormFields();
         }
 
         $this->confirmingDeleteId = null;
-        $this->successMessage = __('Pais deleted successfully.');
+        $this->successMessage = __('Departamento deleted successfully.');
         $this->resetPage(self::PAGINATION_PAGE_NAME);
     }
 
     protected function clearFormFields(): void
     {
         $this->editingId = null;
-        $this->reset(['prefijo', 'nombre', 'coordena', 'zoom']);
+        $this->reset(['nombre', 'pais', 'coordena', 'zoom']);
         $this->resetValidation();
     }
 
@@ -119,8 +119,10 @@ class PaisManager extends Component
 
     public function render()
     {
-        return view('livewire.pais-manager', [
-            'paises' => Pais::query()->orderByDesc('id')->paginate(20, ['*'], self::PAGINATION_PAGE_NAME),
+        return view('livewire.departamento-manager', [
+            'departamentos' => Departamento::query()
+                ->orderByDesc('id')
+                ->paginate(20, ['*'], self::PAGINATION_PAGE_NAME),
         ]);
     }
 }
