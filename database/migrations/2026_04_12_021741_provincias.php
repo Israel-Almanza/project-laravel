@@ -12,6 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         //
+        Schema::create('provincias', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            
+            // Foreign keys
+            $table->foreignId('pais_id')->constrained('pais')->cascadeOnDelete();
+            $table->foreignId('departamento_id')->constrained('departamentos')->cascadeOnDelete();
+            $table->string('coordena');
+            $table->string('zoom');
+            
+            $table->timestamps();
+        });
     }
 
     /**

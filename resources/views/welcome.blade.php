@@ -44,7 +44,18 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <span class="nav-link disabled" tabindex="-1">{{ __('Provincia') }}</span>
+                        <button
+                            class="nav-link"
+                            id="tab-provincia"
+                            data-bs-toggle="tab"
+                            data-bs-target="#pane-provincia"
+                            type="button"
+                            role="tab"
+                            aria-controls="pane-provincia"
+                            aria-selected="false"
+                        >
+                            {{ __('Provincia') }}
+                        </button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <span class="nav-link disabled" tabindex="-1">{{ __('Municipio') }}</span>
@@ -79,6 +90,15 @@
                         tabindex="0"
                     >
                         <livewire:departamento-manager />
+                    </div>
+                    <div
+                        class="tab-pane fade"
+                        id="pane-provincia"
+                        role="tabpanel"
+                        aria-labelledby="tab-provincia"
+                        tabindex="0"
+                    >
+                        <livewire:provincia-manager />
                     </div>
                 </div>
             </div>

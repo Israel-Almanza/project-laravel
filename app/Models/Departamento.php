@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $created_at
  * @property $updated_at
  * @property-read \App\Models\Pais|null $pais
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Provincia> $provincias
  *
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
@@ -33,5 +34,10 @@ class Departamento extends Model
     public function pais()
     {
         return $this->belongsTo(Pais::class, 'pais_id');
+    }
+
+    public function provincias()
+    {
+        return $this->hasMany(Provincia::class, 'departamento_id');
     }
 }
