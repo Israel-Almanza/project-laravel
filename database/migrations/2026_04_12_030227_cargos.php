@@ -12,6 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         //
+        Schema::create('cargos', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('nombre');
+            $table->string('prefijo');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('cargos');
     }
 };

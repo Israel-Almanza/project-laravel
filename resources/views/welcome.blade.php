@@ -71,6 +71,20 @@
                             {{ __('Municipio') }}
                         </button>
                     </li>
+                    <li class="nav-item" role="presentation">
+                        <button
+                            class="nav-link"
+                            id="tab-cargo"
+                            data-bs-toggle="tab"
+                            data-bs-target="#pane-cargo"
+                            type="button"
+                            role="tab"
+                            aria-controls="pane-cargo"
+                            aria-selected="false"
+                        >
+                            {{ __('Cargos') }}
+                        </button>
+                    </li>
                 </ul>
             </div>
             <div class="card-body bg-light p-3 p-md-4">
@@ -110,6 +124,15 @@
                         tabindex="0"
                     >
                         <livewire:municipio-manager />
+                    </div>
+                    <div
+                        class="tab-pane fade"
+                        id="pane-cargo"
+                        role="tabpanel"
+                        aria-labelledby="tab-cargo"
+                        tabindex="0"
+                    >
+                        <livewire:cargo-manager />
                     </div>
                 </div>
             </div>
