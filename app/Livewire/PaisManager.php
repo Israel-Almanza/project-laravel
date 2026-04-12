@@ -11,6 +11,10 @@ class PaisManager extends Component
 {
     use WithPagination;
 
+    protected $listeners = [
+        'dataUpdated' => 'refreshData',
+    ];
+
     private const PAGINATION_PAGE_NAME = 'paisesPage';
 
     public ?int $editingId = null;
@@ -32,6 +36,19 @@ class PaisManager extends Component
     public function updatedSearch(): void
     {
         $this->resetPage(self::PAGINATION_PAGE_NAME);
+    }
+
+    public function refreshData(): void
+    {
+        $this->loadData();
+    }
+
+    /**
+     * Recarga estado derivado de la base de datos (tablas en render(); sin listas dependientes).
+     */
+    protected function loadData(): void
+    {
+        //
     }
 
     protected function rules(): array
@@ -80,6 +97,8 @@ class PaisManager extends Component
 
         $this->clearFormFields();
         $this->resetPage(self::PAGINATION_PAGE_NAME);
+        $this->loadData();
+        $this->dispatch('dataUpdated');
     }
 
     public function askDelete(int $id): void
@@ -108,6 +127,8 @@ class PaisManager extends Component
         $this->confirmingDeleteId = null;
         $this->successMessage = __('Pais deleted successfully.');
         $this->resetPage(self::PAGINATION_PAGE_NAME);
+        $this->loadData();
+        $this->dispatch('dataUpdated');
     }
 
     protected function clearFormFields(): void

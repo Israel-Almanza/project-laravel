@@ -14,6 +14,10 @@ class ProvinciaManager extends Component
 {
     use WithPagination;
 
+    protected $listeners = [
+        'dataUpdated' => 'refreshData',
+    ];
+
     private const PAGINATION_PAGE_NAME = 'provinciasPage';
 
     public ?int $editingId = null;
@@ -49,8 +53,7 @@ class ProvinciaManager extends Component
 
     public function mount(): void
     {
-        $this->loadPaises();
-        $this->loadDepartamentos();
+        $this->loadData();
     }
 
     public function updatedPaisId(mixed $value): void
@@ -83,6 +86,21 @@ class ProvinciaManager extends Component
         $this->departamento_id = (int) $value;
     }
 
+    public function refreshData(): void
+    {
+        $this->loadData();
+    }
+
+    /**
+     * Recarga selects de país / departamento y valida selección frente a la jerarquía actual.
+     */
+    protected function loadData(): void
+    {
+        $this->loadPaises();
+        $this->loadDepartamentos();
+        $this->sanitizeHierarchySelections();
+    }
+
     protected function loadPaises(): void
     {
         $this->paises = Pais::query()
@@ -106,6 +124,26 @@ class ProvinciaManager extends Component
                 return [$d->id => $label];
             })
             ->all();
+    }
+
+    protected function sanitizeHierarchySelections(): void
+    {
+        if ($this->pais_id !== null && ! array_key_exists($this->pais_id, $this->paises)) {
+            $this->pais_id = null;
+            $this->departamento_id = null;
+
+            return;
+        }
+
+        if ($this->departamento_id !== null) {
+            $valid = Departamento::query()
+                ->where('id', $this->departamento_id)
+                ->where('pais_id', $this->pais_id)
+                ->exists();
+            if (! $valid) {
+                $this->departamento_id = null;
+            }
+        }
     }
 
     protected function rules(): array
@@ -166,8 +204,9 @@ class ProvinciaManager extends Component
         }
 
         $this->clearFormFields();
-        $this->loadDepartamentos();
         $this->resetPage(self::PAGINATION_PAGE_NAME);
+        $this->loadData();
+        $this->dispatch('dataUpdated');
     }
 
     public function askDelete(int $id): void
@@ -195,8 +234,9 @@ class ProvinciaManager extends Component
 
         $this->confirmingDeleteId = null;
         $this->successMessage = __('Provincia deleted successfully.');
-        $this->loadDepartamentos();
         $this->resetPage(self::PAGINATION_PAGE_NAME);
+        $this->loadData();
+        $this->dispatch('dataUpdated');
     }
 
     protected function clearFormFields(): void

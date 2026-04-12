@@ -15,6 +15,10 @@ class MunicipioManager extends Component
 {
     use WithPagination;
 
+    protected $listeners = [
+        'dataUpdated' => 'refreshData',
+    ];
+
     private const PAGINATION_PAGE_NAME = 'municipiosPage';
 
     public ?int $editingId = null;
@@ -55,9 +59,7 @@ class MunicipioManager extends Component
 
     public function mount(): void
     {
-        $this->loadPaises();
-        $this->loadDepartamentos();
-        $this->loadProvincias();
+        $this->loadData();
     }
 
     public function updatedPaisId(mixed $value): void
@@ -126,6 +128,22 @@ class MunicipioManager extends Component
         }
     }
 
+    public function refreshData(): void
+    {
+        $this->loadData();
+    }
+
+    /**
+     * Recarga selects de país / departamento / provincia y valida la jerarquía actual.
+     */
+    protected function loadData(): void
+    {
+        $this->loadPaises();
+        $this->loadDepartamentos();
+        $this->loadProvincias();
+        $this->sanitizeHierarchySelections();
+    }
+
     protected function loadPaises(): void
     {
         $this->paises = Pais::query()
@@ -166,6 +184,45 @@ class MunicipioManager extends Component
                 return [$p->id => $label];
             })
             ->all();
+    }
+
+    protected function sanitizeHierarchySelections(): void
+    {
+        if ($this->pais_id !== null && ! array_key_exists($this->pais_id, $this->paises)) {
+            $this->pais_id = null;
+            $this->departamento_id = null;
+            $this->provincia_id = null;
+
+            return;
+        }
+
+        if ($this->departamento_id !== null && ! array_key_exists($this->departamento_id, $this->departamentos)) {
+            $this->departamento_id = null;
+            $this->provincia_id = null;
+
+            return;
+        }
+
+        if ($this->departamento_id !== null) {
+            $validDepartamento = Departamento::query()
+                ->where('id', $this->departamento_id)
+                ->where('pais_id', $this->pais_id)
+                ->exists();
+            if (! $validDepartamento) {
+                $this->departamento_id = null;
+                $this->provincia_id = null;
+
+                return;
+            }
+        }
+
+        if ($this->provincia_id !== null && ! array_key_exists($this->provincia_id, $this->provincias)) {
+            $this->provincia_id = null;
+
+            return;
+        }
+
+        $this->syncProvinciaWithHierarchy();
     }
 
     protected function rules(): array
@@ -235,9 +292,9 @@ class MunicipioManager extends Component
         }
 
         $this->clearFormFields();
-        $this->loadDepartamentos();
-        $this->loadProvincias();
         $this->resetPage(self::PAGINATION_PAGE_NAME);
+        $this->loadData();
+        $this->dispatch('dataUpdated');
     }
 
     public function askDelete(int $id): void
@@ -265,8 +322,9 @@ class MunicipioManager extends Component
 
         $this->confirmingDeleteId = null;
         $this->successMessage = __('Municipio deleted successfully.');
-        $this->loadProvincias();
         $this->resetPage(self::PAGINATION_PAGE_NAME);
+        $this->loadData();
+        $this->dispatch('dataUpdated');
     }
 
     protected function clearFormFields(): void

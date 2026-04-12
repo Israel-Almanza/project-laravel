@@ -12,6 +12,10 @@ class DepartamentoManager extends Component
 {
     use WithPagination;
 
+    protected $listeners = [
+        'dataUpdated' => 'refreshData',
+    ];
+
     private const PAGINATION_PAGE_NAME = 'departamentosPage';
 
     public ?int $editingId = null;
@@ -40,7 +44,7 @@ class DepartamentoManager extends Component
 
     public function mount(): void
     {
-        $this->loadPaises();
+        $this->loadData();
     }
 
     public function updatedPaisId(mixed $value): void
@@ -54,12 +58,33 @@ class DepartamentoManager extends Component
         $this->pais_id = (int) $value;
     }
 
+    public function refreshData(): void
+    {
+        $this->loadData();
+    }
+
+    /**
+     * Recarga opciones del select y valida selección actual frente a la BD.
+     */
+    protected function loadData(): void
+    {
+        $this->loadPaises();
+        $this->sanitizePaisSelection();
+    }
+
     protected function loadPaises(): void
     {
         $this->paises = Pais::query()
             ->orderBy('nombre')
             ->pluck('nombre', 'id')
             ->all();
+    }
+
+    protected function sanitizePaisSelection(): void
+    {
+        if ($this->pais_id !== null && ! array_key_exists($this->pais_id, $this->paises)) {
+            $this->pais_id = null;
+        }
     }
 
     protected function rules(): array
@@ -108,6 +133,8 @@ class DepartamentoManager extends Component
 
         $this->clearFormFields();
         $this->resetPage(self::PAGINATION_PAGE_NAME);
+        $this->loadData();
+        $this->dispatch('dataUpdated');
     }
 
     public function askDelete(int $id): void
@@ -136,6 +163,8 @@ class DepartamentoManager extends Component
         $this->confirmingDeleteId = null;
         $this->successMessage = __('Departamento deleted successfully.');
         $this->resetPage(self::PAGINATION_PAGE_NAME);
+        $this->loadData();
+        $this->dispatch('dataUpdated');
     }
 
     protected function clearFormFields(): void
