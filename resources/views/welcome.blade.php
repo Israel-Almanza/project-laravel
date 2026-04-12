@@ -85,6 +85,20 @@
                             {{ __('Cargos') }}
                         </button>
                     </li>
+                    <li class="nav-item" role="presentation">
+                        <button
+                            class="nav-link"
+                            id="tab-role"
+                            data-bs-toggle="tab"
+                            data-bs-target="#pane-role"
+                            type="button"
+                            role="tab"
+                            aria-controls="pane-role"
+                            aria-selected="false"
+                        >
+                            {{ __('Roles') }}
+                        </button>
+                    </li>
                 </ul>
             </div>
             <div class="card-body bg-light p-3 p-md-4">
@@ -133,6 +147,15 @@
                         tabindex="0"
                     >
                         <livewire:cargo-manager />
+                    </div>
+                    <div
+                        class="tab-pane fade"
+                        id="pane-role"
+                        role="tabpanel"
+                        aria-labelledby="tab-role"
+                        tabindex="0"
+                    >
+                        <livewire:role-manager />
                     </div>
                 </div>
             </div>
