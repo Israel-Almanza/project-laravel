@@ -1,73 +1,134 @@
-@extends('layouts.app')
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+    <title>Login</title>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+    <style>
+    body {
+        background: #eef1f5;
+    }
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+    .login-container {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+    .login-card {
+        width: 900px;
+        display: flex;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+    .login-left {
+        width: 50%;
+        background: linear-gradient(135deg, #ff4b6e, #ff1e3c);
+        color: white;
+        padding: 40px;
+        text-align: center;
+    }
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+    .login-right {
+        width: 50%;
+        background: #f8f9fa;
+        padding: 40px;
+    }
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+    .form-control {
+        background: #e9ecef;
+        border: none;
+    }
 
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+    .btn-login {
+        background: #ff1e3c;
+        color: white;
+        width: 100%;
+    }
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+    .extra-options {
+        display: flex;
+        justify-content: space-between;
+    }
+    </style>
+</head>
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
+<body>
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+<div class="login-container">
+    <div class="login-card">
+
+        <!-- IZQUIERDA -->
+        <div class="login-left">
+            <h2>AD</h2>
+
+            <p>
+                BIENAVENTURADO el varón que no anduvo en consejo de malos,
+                Ni estuvo en camino de pecadores...
+            </p>
+
+            <p class="mt-5">Y todo lo que hace, prosperará.</p>
+            <small>Salmos 1:1-3</small>
         </div>
+
+        <!-- DERECHA -->
+        <div class="login-right">
+            <h3>Bienvenidos:</h3>
+
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" name="email"
+                        class="form-control @error('email') is-invalid @enderror"
+                        value="{{ old('email') }}" required>
+
+                    @error('email')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
+                    <label>Contraseña</label>
+                    <input type="password" name="password"
+                        class="form-control @error('password') is-invalid @enderror"
+                        required>
+
+                    @error('password')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="mb-3 extra-options">
+                    <div>
+                        <input type="checkbox" name="remember">
+                        <label>Soy humano</label>
+                    </div>
+
+                    @if (Route::has('password.request'))
+                        <a href="{{ route('password.request') }}">
+                            Olvidaste tu contraseña?
+                        </a>
+                    @endif
+                </div>
+
+                <button type="submit" class="btn btn-login">
+                    Ingresar
+                </button>
+
+            </form>
+        </div>
+
     </div>
 </div>
-@endsection
+
+</body>
+</html>
