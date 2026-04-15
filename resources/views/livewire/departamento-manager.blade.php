@@ -98,8 +98,8 @@
                         <tbody>
                             @forelse ($departamentos as $depto)
                                 <tr wire:key="departamento-row-{{ $depto->id }}">
-                                    <td class="ps-3">{{ $depto->nombre }}</td>
-                                    <td>{{ $depto->pais?->nombre ?? '—' }}</td>
+                                    <td class="ps-3 text-muted small">{{ $depto->nombre }}</td>
+                                    <td class="text-muted small">{{ $depto->pais?->nombre ?? '—' }}</td>
                                     <td><span class="text-muted small">{{ $depto->coordenadas }}</span></td>
                                     <td><span class="text-muted small">{{ $depto->zoom }}</span></td>
                                     <td class="text-end pe-2">
