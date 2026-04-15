@@ -9,8 +9,10 @@
     <title>{{ config('app.name', 'Chile') }}</title>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap"
+        rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -25,7 +27,13 @@
                 <!-- LOGO -->
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
                     <img class="me-2" src="https://i.ibb.co/8g05j3mG/logo-asambleasdedios.png" width="40" />
-                    <span class="text-danger fw-bold" style="font-size: 26px; text-shadow: 0 0 2px currentColor;">
+                    <span class="text-danger fw-bold" style="font-size: 23px;
+             display: inline-block;
+             transform: scaleX(1.1);
+             margin-left:5px;
+             font-weight: 900;
+             -webkit-text-stroke: 2px currentColor;
+             letter-spacing: 2px;">
                         CHILE
                     </span>
                 </a>
@@ -36,7 +44,7 @@
 
                         <!-- Maestro -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Maestro</a>
+                            <a class="subtitle nav-link dropdown-toggle" data-bs-toggle="dropdown">Maestro</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="dash_admin.php">Home</a>
                                 <a class="dropdown-item" href="coordinador.php">Coordinador</a>
@@ -45,10 +53,19 @@
 
                         <!-- Actividades -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Actividades</a>
+                            <a class="subtitle nav-link dropdown-toggle" data-bs-toggle="dropdown">Actividades</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="perfil_nacional.php">Perfil</a>
                                 <a class="dropdown-item" href="dash_nacional.php">Dashboard</a>
+                            </div>
+                        </li>
+
+                        <!-- Configuracion -->
+                        <li class="nav-item dropdown">
+                            <a class="subtitle nav-link dropdown-toggle" data-bs-toggle="dropdown">Configuración</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="perfil_nacional.php">Parametros</a>
+                                <a class="dropdown-item" href="dash_nacional.php">Politicas</a>
                             </div>
                         </li>
 
@@ -79,7 +96,7 @@
                                     <div class="dropdown theme-control-dropdown">
                                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                             <span class="fas fa-sun"></span>
-                                       
+
                                         </a>
                                     </div>
                                 </li>
@@ -125,7 +142,7 @@
 
                                             <!-- SALIR -->
                                             <a class="dropdown-item text-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
+                                                                    document.getElementById('logout-form').submit();">
                                                 Salir
                                             </a>
 
@@ -166,5 +183,9 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+    }
+
+    .subtitle {
+        font-weight: bold;
     }
 </style>
