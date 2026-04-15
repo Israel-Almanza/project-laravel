@@ -1,0 +1,28 @@
+/* Keep Bootstrap/Livewire tab content visible in Laravel pages.
+   Legacy style.css defines `.tab-content { display: none; }`, which hides all tabs. */
+
+#dashboardTabsContent {
+    display: block !important;
+    float: none !important;
+}
+
+#dashboardTabsContent > .tab-pane {
+    display: none;
+}
+
+#dashboardTabsContent > .tab-pane.active,
+#dashboardTabsContent > .tab-pane.show.active {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#pane-pais,
+#pane-pais .row,
+#pane-pais .card,
+#pane-pais .table-responsive,
+#pane-pais table,
+#pane-pais form {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
