@@ -44,14 +44,17 @@
     }
 
     .module-table-card .table th {
-        padding: 0px;
+        padding: 2px;
         font-size: 0.8rem;
+        font-weight: 700;
+        color: #4D5969;
     }
 
     .module-table-card .table td {
         padding: 0px;
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         background-color: #fff;
+        font-weight: 500;
     }
 
     .pagination {

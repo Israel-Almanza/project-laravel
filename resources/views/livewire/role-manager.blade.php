@@ -60,7 +60,7 @@
                     @if ($editingId)
                         {{ __('Actualizar') }}
                     @else
-                        {{ __('Guardar') }}
+                        {{ __('GUARDAR') }}
                     @endif
                 </button>
                 @if ($editingId)

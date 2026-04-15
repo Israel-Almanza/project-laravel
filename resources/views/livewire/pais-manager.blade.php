@@ -59,7 +59,7 @@
                     @if ($editingId)
                         {{ __('Actualizar') }}
                     @else
-                        {{ __('Guardar') }}
+                        {{ __('GUARDAR') }}
                     @endif
                 </button>
                 @if ($editingId)
@@ -102,8 +102,8 @@
                         <tbody>
                             @forelse ($paises as $pai)
                                 <tr wire:key="pais-row-{{ $pai->id }}">
-                                    <td class="ps-3" >{{ $pai->prefijo }}</td>
-                                    <td class="fw-medium">{{ $pai->nombre }}</td>
+                                    <td class="ps-3" ><span class="text-muted small">{{ $pai->prefijo }}</span></td>
+                                    <td class="fw-medium"><span class="text-muted small">{{ $pai->nombre }}</span></td>
                                     <td><span class="text-muted small">{{ $pai->coordenadas }}</span></td>
                                     <td><span class="text-muted small">{{ $pai->zoom }}</span></td>
                                     <td class="text-end pe-2">
