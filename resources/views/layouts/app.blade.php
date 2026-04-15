@@ -5,9 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name', 'Chile') }}</title>
 
     <!-- Fonts -->
@@ -22,250 +20,151 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light shadow-sm">
-            <div class="container-fluid px-4 px-xl-5 ">
+            <div class="container-fluid px-4 px-xl-5">
+
+                <!-- LOGO -->
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
-                    <img class="me-2" src="https://i.ibb.co/8g05j3mG/logo-asambleasdedios.png" alt="" width="40" />
-                    <span class="font-sans-serif text-danger"
-                        style="font-weight: 900; font-size: 26px; ;text-shadow: 0 0 2px currentColor;">
+                    <img class="me-2" src="https://i.ibb.co/8g05j3mG/logo-asambleasdedios.png" width="40" />
+                    <span class="text-danger fw-bold" style="font-size: 26px; text-shadow: 0 0 2px currentColor;">
                         CHILE
                     </span>
                 </a>
+
+                <!-- MENÚ PRINCIPAL -->
                 <div class="collapse navbar-collapse scrollbar" id="navbarStandard">
-                    <ul class="navbar-nav" data-top-nav-dropdowns="data-top-nav-dropdowns">
+                    <ul class="navbar-nav">
+
+                        <!-- Maestro -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" id="dashboards">Maestro</a>
-                            <div class="dropdown-menu dropdown-caret dropdown-menu-card border-0 mt-0"
-                                aria-labelledby="dashboards">
-                                <div class="bg-white dark__bg-1000 rounded-3 py-2">
-                                    <a class="dropdown-item link-600 fw-medium" href="dash_admin.php">Home</a>
-                                    <a class="dropdown-item link-600 fw-medium" href="coordinador.php">Coordinador</a>
-                                    <a class="dropdown-item link-600 fw-medium" href="">Soporte<span
-                                            class="badge rounded-pill ms-2 badge-subtle-success">Info</span></a>
-                                </div>
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Maestro</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="dash_admin.php">Home</a>
+                                <a class="dropdown-item" href="coordinador.php">Coordinador</a>
                             </div>
                         </li>
+
+                        <!-- Actividades -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" id="apps">Actividades</a>
-                            <div class="dropdown-menu dropdown-caret dropdown-menu-card border-0 mt-0"
-                                aria-labelledby="apps">
-                                <div class="card navbar-card-app shadow-none dark__bg-1000">
-                                    <div class="card-body scrollbar max-h-dropdown"><img class="img-dropdown"
-                                            src="assets/img/icons/spot-ilustrations/corner-1.png" width="130" alt="" />
-                                        <div class="row">
-                                            <div class="col-6 col-md-4">
-                                                <div class="nav flex-column">
-                                                    <p class="nav-link text-700 mb-0 fw-bold">Nacional</p>
-                                                    <a class="nav-link py-1 link-600 fw-medium"
-                                                        href="perfil_nacional.php">Perfil</a>
-                                                    <a class="nav-link py-1 link-600 fw-medium"
-                                                        href="dash_nacional.php">Dashboard</a>
-                                                    <a class="nav-link py-1 link-600 fw-medium"
-                                                        href="agenda_cal-nal.php">Agenda</a>
-                                                    <a class="nav-link py-1 link-600 fw-medium"
-                                                        href="pastores.php">Pastores</a>
-                                                    <a class="nav-link py-1 link-600 fw-medium"
-                                                        href="dash_iglesias.php">Iglesias</a>
-                                                    <p class="nav-link text-700 mb-0 fw-bold">Distrito</p>
-                                                    <a class="nav-link py-1 link-600 fw-medium"
-                                                        href="perfil_distrito.php">Perfil</a>
-                                                    <a class="nav-link py-1 link-600 fw-medium"
-                                                        href="dash_distrito.php">Dashboard</a>
-                                                    <a class="nav-link py-1 link-600 fw-medium"
-                                                        href="agenda_cal-dis.php">Agenda</a>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 col-md-4">
-                                                <div class="nav flex-column">
-                                                    <p class="nav-link text-700 mb-0 fw-bold">Sección/región</p>
-                                                    <a class="nav-link py-1 link-600 fw-medium"
-                                                        href="perfil_region.php">Perfil</a>
-                                                    <a class="nav-link py-1 link-600 fw-medium"
-                                                        href="dash_region.php">Dashboard</a>
-                                                    <a class="nav-link py-1 link-600 fw-medium"
-                                                        href="agenda_cal-reg.php">Agenda</a>
-                                                    <p class="nav-link text-700 mb-0 fw-bold">Iglesia</p>
-                                                    <a class="nav-link py-1 link-600 fw-medium"
-                                                        href="perfil_iglesia.php">Perfil</a>
-                                                    <a class="nav-link py-1 link-600 fw-medium"
-                                                        href="dash_iglesia.php">Dashboard</a>
-                                                    <a class="nav-link py-1 link-600 fw-medium"
-                                                        href="agenda_cal-igl.php">Agenda</a>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 col-md-4">
-                                                <div class="nav flex-column">
-                                                    <p class="nav-link text-700 mb-0 fw-bold">Otros</p>
-                                                    <a class="nav-link py-1 link-600 fw-medium"
-                                                        href="local-publico.php">Publico</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Actividades</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="perfil_nacional.php">Perfil</a>
+                                <a class="dropdown-item" href="dash_nacional.php">Dashboard</a>
                             </div>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" id="documentations">Configuración</a>
-                            <div class="dropdown-menu dropdown-caret dropdown-menu-card border-0 mt-0"
-                                aria-labelledby="documentations">
-                                <div class="bg-white dark__bg-1000 rounded-3 py-2">
-                                    <a class="dropdown-item link-600 fw-medium" href="parametros.php">Parametros<span
-                                            class="badge rounded-pill ms-2 badge-subtle-success">Admin</span></a>
-                                    <a class="dropdown-item link-600 fw-medium" href="">Politicas</a>
-                                </div>
-                            </div>
-                        </li>
+
                     </ul>
                 </div>
+
+                <!-- BOTÓN RESPONSIVE -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    data-bs-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+                <!-- DERECHA -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
+
                         @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">Login</a>
+                            </li>
                         @else
 
+                            <!-- ICONOS + USUARIO -->
                             <ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center">
+
+                                <!-- THEME -->
                                 <li class="nav-item ps-2 pe-0">
-                                    <div class="dropdown theme-control-dropdown"><a
-                                            class="nav-link d-flex align-items-center dropdown-toggle fa-icon-wait fs-9 pe-1 py-0"
-                                            href="#" role="button" id="themeSwitchDropdown" data-bs-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false"><span class="fas fa-sun fs-7"
-                                                data-fa-transform="shrink-2"
-                                                data-theme-dropdown-toggle-icon="light"></span><span
-                                                class="fas fa-moon fs-7" data-fa-transform="shrink-3"
-                                                data-theme-dropdown-toggle-icon="dark"></span><span
-                                                class="fas fa-adjust fs-7" data-fa-transform="shrink-2"
-                                                data-theme-dropdown-toggle-icon="auto"></span></a>
-                                        <div class="dropdown-menu dropdown-menu-end dropdown-caret border py-0 mt-3"
-                                            aria-labelledby="themeSwitchDropdown">
-                                            <div class="bg-white dark__bg-1000 rounded-2 py-2"><button
-                                                    class="dropdown-item d-flex align-items-center gap-2" type="button"
-                                                    value="light" data-theme-control="theme"><span
-                                                        class="fas fa-sun"></span>Light<span
-                                                        class="fas fa-check dropdown-check-icon ms-auto text-600"></span></button>
-                                                <button class="dropdown-item d-flex align-items-center gap-2" type="button"
-                                                    value="dark" data-theme-control="theme"><span class="fas fa-moon"
-                                                        data-fa-transform=""></span>Dark<span
-                                                        class="fas fa-check dropdown-check-icon ms-auto text-600"></span></button>
-                                                <button class="dropdown-item d-flex align-items-center gap-2" type="button"
-                                                    value="auto" data-theme-control="theme"><span class="fas fa-adjust"
-                                                        data-fa-transform=""></span>Auto<span
-                                                        class="fas fa-check dropdown-check-icon ms-auto text-600"></span></button>
-                                            </div>
-                                        </div>
+                                    <div class="dropdown theme-control-dropdown">
+                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                            <span class="fas fa-sun"></span>
+                                       
+                                        </a>
                                     </div>
                                 </li>
+
+                                <!-- GRID -->
                                 <li class="nav-item dropdown px-1">
-                                    <a class="nav-link fa-icon-wait nine-dots p-1" id="navbarDropdownMenu" role="button"
-                                        data-hide-on-body-scroll="data-hide-on-body-scroll" data-bs-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="43" viewBox="0 0 16 16"
-                                            fill="none">
-                                            <circle cx="2" cy="2" r="2" fill="#6C6E71"></circle>
-                                            <circle cx="2" cy="8" r="2" fill="#6C6E71"></circle>
-                                            <circle cx="2" cy="14" r="2" fill="#6C6E71"></circle>
-                                            <circle cx="8" cy="8" r="2" fill="#6C6E71"></circle>
-                                            <circle cx="8" cy="14" r="2" fill="#6C6E71"></circle>
-                                            <circle cx="14" cy="8" r="2" fill="#6C6E71"></circle>
-                                            <circle cx="14" cy="14" r="2" fill="#6C6E71"></circle>
-                                            <circle cx="8" cy="2" r="2" fill="#6C6E71"></circle>
-                                            <circle cx="14" cy="2" r="2" fill="#6C6E71"></circle>
+                                    <a class="nav-link" data-bs-toggle="dropdown">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+                                            <circle cx="2" cy="2" r="2" />
+                                            <circle cx="2" cy="8" r="2" />
+                                            <circle cx="2" cy="14" r="2" />
+                                            <circle cx="8" cy="8" r="2" />
+                                            <circle cx="8" cy="14" r="2" />
+                                            <circle cx="14" cy="8" r="2" />
+                                            <circle cx="14" cy="14" r="2" />
+                                            <circle cx="8" cy="2" r="2" />
+                                            <circle cx="14" cy="2" r="2" />
                                         </svg>
                                     </a>
-                                    <div class="dropdown-menu dropdown-caret dropdown-caret dropdown-menu-end dropdown-menu-card dropdown-caret-bg"
-                                        aria-labelledby="navbarDropdownMenu">
-                                    </div>
                                 </li>
+
+                                <!-- USUARIO -->
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link pe-0 ps-2" id="navbarDropdownUser" role="button"
-                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <div class="avatar avatar-xl">
-                                            <img class="rounded-circle" src="assets/img/usuarios/nilsen.jpg" alt="" />
+                                    <a class="nav-link pe-0 ps-2" data-bs-toggle="dropdown">
+                                        <div class="avatar">
+                                            <img class="rounded-circle avatar-img" src="assets/img/usuarios/nilsen.jpg">
                                         </div>
                                     </a>
-                                    <div class="dropdown-menu dropdown-caret dropdown-caret dropdown-menu-end py-0"
-                                        aria-labelledby="navbarDropdownUser">
-                                        <div class="bg-white dark__bg-1000 rounded-2 py-2">
-                                            <a class="dropdown-item fw-bold text-warning" href="#!"><span
-                                                    class="fas fa-crown me-1"></span><span>Perfil</span></a>
+
+                                    <div class="dropdown-menu dropdown-menu-end py-0">
+                                        <div class="bg-white rounded-2 py-2">
+
+                                            <a class="dropdown-item fw-bold text-warning">
+                                                <span class="fas fa-crown me-1"></span>Perfil
+                                            </a>
+
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="">Distritoa</a>
-                                            <a class="dropdown-item" href="">Regiones</a>
+
+                                            <a class="dropdown-item">Distrito</a>
+                                            <a class="dropdown-item">Regiones</a>
+
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="">Salir</a>
+
+                                            <!-- SALIR -->
+                                            <a class="dropdown-item text-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                                Salir
+                                            </a>
+
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                class="d-none">
+                                                @csrf
+                                            </form>
+
                                         </div>
                                     </div>
                                 </li>
+
                             </ul>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center" href="#"
-                                    role="button" data-bs-toggle="dropdown">
 
-                                    <div class="user-avatar">
-                                        <i class="fa-solid fa-user"></i>
-                                    </div>
-
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                         document.getElementById('logout-form').submit();">
-                                        {{ __('Salir') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
                         @endguest
+
                     </ul>
                 </div>
+
             </div>
         </nav>
 
-        <main class="">
+        <main>
             @yield('content')
         </main>
     </div>
 </body>
 
 </html>
+
 <style>
-    .user-avatar {
+    .avatar {
         width: 35px;
         height: 35px;
-        background-color: #e60023;
-        /* rojo estilo CHILE */
-        color: #fff;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 14px;
-        transition: all 0.2s ease;
     }
 
-    .user-avatar:hover {
-        background-color: #c4001d;
+    .avatar-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 </style>
